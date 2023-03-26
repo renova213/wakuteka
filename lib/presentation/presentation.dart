@@ -1,5 +1,6 @@
-export 'configs/exports.dart';
-export 'constants/exports.dart';
+export 'shared/configs/exports.dart';
+export 'shared/styles/exports.dart';
 export 'pages/exports.dart';
-export 'components/exports.dart';
+export 'shared/components/exports.dart';
 export 'providers/exports.dart';
+export 'shared/utils/exports.dart';

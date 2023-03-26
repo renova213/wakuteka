@@ -1,14 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:wakuteka/presentation/pages/splash/components/body.dart';
 import '../../presentation.dart';
+import 'components/body.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
   static String routeName = "/splash";
+
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
+  startTime() async {
+    await Future.delayed(
+      kSplashDuration,
+      () => Navigator.of(context).pushReplacement(
+        NavigatorFadeTransitionHelper.fadeIn(
+            OnboardingPage.routeName, const OnboardingPage()),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    startTime();
+  }
+
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return const Scaffold(
       body: Body(),
     );

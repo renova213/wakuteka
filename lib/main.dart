@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'presentation/presentation.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());
 }
 
@@ -11,19 +16,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return multiProvider(
-      MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            useMaterial3: true,
-            scaffoldBackgroundColor: Colors.white,
-            fontFamily: "Muli",
-            textTheme: const TextTheme(
-              bodyMedium: TextStyle(color: kTextColor),
-              bodySmall: TextStyle(color: kTextColor),
-            ),
-            visualDensity: VisualDensity.adaptivePlatformDensity),
-        initialRoute: SplashPage.routeName,
-        routes: routes,
+      ScreenUtilInit(
+        designSize: const Size(375, 812),
+        builder: (context, _) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: theme(),
+          initialRoute: SplashPage.routeName,
+          routes: routes,
+        ),
       ),
     );
   }
