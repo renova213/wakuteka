@@ -68,7 +68,7 @@ class CategoryCard extends StatelessWidget {
             SizedBox(height: 8.h),
             Text(
               label,
-              style: AppTextStyles.body2.copyWith(fontWeight: FontWeight.w500),
+              style: AppTextStyles.body2Medium,
             ),
           ],
         ),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import 'onboarding_content.dart';
-import '../../../presentation.dart';
+import 'components/onboarding_content.dart';
+import '../../presentation.dart';
 
 class Body extends StatefulWidget {
   const Body({super.key});
@@ -55,12 +55,13 @@ class _BodyState extends State<Body> {
                         opacity: splash.currentPage == 2 ? 1.0 : 0.0,
                         duration: kWidgetAnimationDuration,
                         child: DefaultButton(
+                          height: 56,
+                          width: double.maxFinite,
+                          borderRadius: 15,
                           text: "Continue",
                           press: () {
-                            Navigator.of(context).pushAndRemoveUntil(
-                                NavigatorFadeTransitionHelper.fadeIn(
-                                    HomePage.routeName, const HomePage()),
-                                (route) => false);
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                "/home", (route) => false);
                           },
                         ),
                       ),

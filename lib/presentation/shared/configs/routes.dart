@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../../presentation.dart';
 
-final Map<String, WidgetBuilder> routes = {
-  SplashPage.routeName: (_) => const SplashPage(),
-  OnboardingPage.routeName: (_) => const OnboardingPage(),
-  HomePage.routeName: (_) => const HomePage(),
-};
+class Routes {
+  static Map<String, WidgetBuilder> getRoutes(BuildContext context) {
+    return {
+      SplashPage.routeName: (context) => const SplashPage(),
+      OnboardingPage.routeName: (context) => const OnboardingPage(),
+      HomePage.routeName: (context) => const HomePage(),
+      DetailProductPage.routeName: (context) => const DetailProductPage(),
+    };
+  }
+}

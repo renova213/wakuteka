@@ -11,6 +11,7 @@ class NewArrival extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionTitle(title: "New Arrival", pressSeeAll: () {}),
         SingleChildScrollView(
@@ -18,17 +19,22 @@ class NewArrival extends StatelessWidget {
           child: Consumer<ProductProvider>(
             builder: (context, product, _) => Row(
               children: List.generate(
-                product.demoProduct.length,
+                product.newArrivalProduct.length,
                 (index) {
-                  final data = product.demoProduct[index];
+                  final data = product.newArrivalProduct[index];
 
                   return Padding(
                     padding: EdgeInsets.only(right: 16.w),
                     child: ProductCard(
-                        image: data['image'],
-                        price: data['price'],
-                        press: () {},
-                        title: data['title']),
+                        uniqueKey: data.uniqueKey,
+                        image: data.image.first,
+                        price: data.price,
+                        press: () {
+                          Navigator.of(context).pushNamed(
+                              DetailProductPage.routeName,
+                              arguments: data);
+                        },
+                        title: data.title),
                   );
                 },
               ),

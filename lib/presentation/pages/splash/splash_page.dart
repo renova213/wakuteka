@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../presentation.dart';
-import 'components/body.dart';
+import 'body.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
-  static String routeName = "/splash";
+  static String routeName = "/";
 
   @override
   State<SplashPage> createState() => _SplashPageState();
@@ -15,10 +15,7 @@ class _SplashPageState extends State<SplashPage> {
   startTime() async {
     await Future.delayed(
       kSplashDuration,
-      () => Navigator.of(context).pushReplacement(
-        NavigatorFadeTransitionHelper.fadeIn(
-            OnboardingPage.routeName, const OnboardingPage()),
-      ),
+      () => Navigator.of(context).pushReplacementNamed("/onboarding"),
     );
   }
 

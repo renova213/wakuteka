@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DefaultIconButton extends StatelessWidget {
-  final Function press;
+  final VoidCallback press;
   final Icon icon;
   const DefaultIconButton({super.key, required this.press, required this.icon});
 
@@ -12,7 +12,7 @@ class DefaultIconButton extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () {},
+          onTap: press,
           child: icon,
         ),
       ),

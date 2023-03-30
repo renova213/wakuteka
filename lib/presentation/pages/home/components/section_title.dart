@@ -15,7 +15,7 @@ class SectionTitle extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AppTextStyles.body1.copyWith(fontWeight: FontWeight.w500),
+          style: AppTextStyles.body1Medium,
         ),
         TextButton(
           onPressed: pressSeeAll,

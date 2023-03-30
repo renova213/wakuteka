@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wakuteka/presentation/pages/onboarding/components/body.dart';
+import 'package:wakuteka/presentation/pages/onboarding/body.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});

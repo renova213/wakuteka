@@ -1,4 +1,4 @@
-export 'body.dart';
+export '../body.dart';
 export 'home_app_bar.dart';
 export 'search_home.dart';
 export 'categories.dart';

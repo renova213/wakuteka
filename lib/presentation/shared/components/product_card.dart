@@ -5,6 +5,7 @@ import '../../presentation.dart';
 
 class ProductCard extends StatelessWidget {
   final String image, title;
+  final UniqueKey uniqueKey;
   final int price;
   final VoidCallback press;
   const ProductCard(
@@ -12,6 +13,7 @@ class ProductCard extends StatelessWidget {
       required this.image,
       required this.price,
       required this.press,
+      required this.uniqueKey,
       required this.title});
 
   @override
@@ -31,7 +33,8 @@ class ProductCard extends StatelessWidget {
                 color: Color(0xFFEFEFF2),
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
-              child: Image.asset(image, height: 135.h),
+              child: Hero(
+                  tag: uniqueKey, child: Image.asset(image, height: 135.h)),
             ),
             SizedBox(height: 8.h),
             Text(title,
@@ -40,9 +43,8 @@ class ProductCard extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis),
             SizedBox(height: 8.h),
-            Text("Rp $price",
-                style:
-                    AppTextStyles.body2.copyWith(fontWeight: FontWeight.w500)),
+            Text(formatCurrency(price.toString()),
+                style: AppTextStyles.body2SemiBold),
           ],
         ),
       ),

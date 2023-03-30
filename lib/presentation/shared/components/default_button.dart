@@ -6,25 +6,34 @@ import '../../presentation.dart';
 class DefaultButton extends StatelessWidget {
   final String text;
   final Function press;
-  const DefaultButton({super.key, required this.text, required this.press});
+  final double height;
+  final double width;
+  final double borderRadius;
+  const DefaultButton(
+      {super.key,
+      required this.text,
+      required this.press,
+      required this.borderRadius,
+      required this.height,
+      required this.width});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.maxFinite,
-      height: 56.h,
+      width: width.h,
+      height: height.h,
       child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(borderRadius)),
           ),
         ),
         onPressed: () => press(),
         child: Text(
           text,
-          style: AppTextStyles.body1
-              .copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+          style: AppTextStyles.body2Bold.copyWith(color: Colors.white),
         ),
       ),
     );

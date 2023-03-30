@@ -19,10 +19,27 @@ class MyApp extends StatelessWidget {
       ScreenUtilInit(
         designSize: const Size(375, 812),
         builder: (context, _) => MaterialApp(
+          onGenerateRoute: (RouteSettings settings) {
+            switch (settings.name) {
+              case "/":
+                return TransitionPage.fadeTransition(
+                    settings, const SplashPage());
+              case "/onboarding":
+                return TransitionPage.fadeTransition(
+                    settings, const OnboardingPage());
+              case "/home":
+                return TransitionPage.fadeTransition(
+                    settings, const HomePage());
+              case "/detail-product":
+                return TransitionPage.fadeTransition(
+                    settings, const DetailProductPage());
+              default:
+                return null;
+            }
+          },
           debugShowCheckedModeBanner: false,
           theme: theme(),
           initialRoute: SplashPage.routeName,
-          routes: routes,
         ),
       ),
     );
