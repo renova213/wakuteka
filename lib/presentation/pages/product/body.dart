@@ -22,14 +22,21 @@ class _BodyState extends State<Body> {
     final context = this.context;
     Future.microtask(
       () async {
-        await Provider.of<ProductProvider>(context, listen: false)
-            .extractVariantName(widget.product.variantProduct)
-            .then((_) async =>
-                await Provider.of<ProductProvider>(context, listen: false)
-                    .extractTitleVariantName(widget.product.variantProduct))
-            .then((_) async =>
-                await Provider.of<ProductProvider>(context, listen: false)
-                    .extractVariant(widget.product.variantProduct));
+        if (widget.product.variantProduct.isNotEmpty) {
+          await Provider.of<ProductProvider>(context, listen: false)
+              .extractVariantName(widget.product.variantProduct)
+              .then((_) async =>
+                  await Provider.of<ProductProvider>(context, listen: false)
+                      .extractTitleVariantName(widget.product.variantProduct))
+              .then((_) async =>
+                  await Provider.of<ProductProvider>(context, listen: false)
+                      .extractVariant(widget.product.variantProduct))
+              .then((_) async =>
+                  await Provider.of<ProductProvider>(context, listen: false)
+                      .changeIndexVariantCard(0))
+              .then((_) => Provider.of<ProductProvider>(context, listen: false)
+                  .changeIndexVariantCard2(0));
+        }
       },
     );
   }
@@ -62,7 +69,33 @@ class _BodyState extends State<Body> {
                   SizedBox(height: 12.h),
                   Divider(color: Colors.grey.shade300),
                   SizedBox(height: 12.h),
-                  const ProductVariant(),
+                  widget.product.variantProduct.isNotEmpty
+                      ? ProductVariant(product: widget.product)
+                      : const SizedBox(),
+                  SizedBox(height: 12.h),
+                  Divider(color: Colors.grey.shade300),
+                  SizedBox(height: 12.h),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: DefaultOutlinedButton(
+                            text: "Beli",
+                            press: () {},
+                            borderRadius: 10,
+                            height: 50,
+                            width: double.maxFinite),
+                      ),
+                      SizedBox(width: 12.w),
+                      Expanded(
+                        child: DefaultButton(
+                            text: "+ Keranjang",
+                            press: () {},
+                            borderRadius: 10,
+                            height: 50,
+                            width: double.maxFinite),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

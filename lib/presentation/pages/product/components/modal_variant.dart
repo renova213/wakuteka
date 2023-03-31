@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:wakuteka/presentation/presentation.dart';
 
+import '../../../../domain/domain.dart';
+
 class ModalVariant extends StatelessWidget {
-  const ModalVariant({super.key});
+  final ProductEntity product;
+  const ModalVariant({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +15,7 @@ class ModalVariant extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: Container(
+          alignment: Alignment.centerLeft,
           constraints: BoxConstraints(minHeight: 0, maxHeight: 750.h),
           width: double.maxFinite,
           decoration: const BoxDecoration(
@@ -23,45 +28,59 @@ class ModalVariant extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(20.r),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _sectionTitle(context),
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: [
-                        _productInfo(image: "assets/images/product_0.png"),
-                        SizedBox(height: 12.h),
-                        Divider(color: Colors.grey.shade400),
-                        productVariant(variantName: "Warna"),
-                        SizedBox(height: 24.h),
-                        productVariant(variantName: "Ukuran"),
-                        SizedBox(height: 24.h),
-                        Divider(color: Colors.grey.shade400),
-                        SizedBox(height: 12.h),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: DefaultOutlinedButton(
-                                  text: "Beli",
-                                  press: () {},
-                                  borderRadius: 10,
-                                  height: 50,
-                                  width: double.maxFinite),
-                            ),
-                            SizedBox(width: 12.w),
-                            Expanded(
-                              child: DefaultButton(
-                                  text: "+ Keranjang",
-                                  press: () {},
-                                  borderRadius: 10,
-                                  height: 50,
-                                  width: double.maxFinite),
-                            ),
-                          ],
-                        ),
-                      ],
+                    child: Consumer<ProductProvider>(
+                      builder: (context, product, _) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _productInfo(),
+                          SizedBox(height: 12.h),
+                          Divider(color: Colors.grey.shade400),
+                          SizedBox(height: 24.h),
+                          _productVariantItems(
+                              press: (index) {
+                                product.changeIndexVariantCard(index);
+                              },
+                              variantName: "${product.variantName}:",
+                              indexVariantCard: product.indexVariantCard),
+                          SizedBox(height: 12.h),
+                          product.variantName2.isNotEmpty
+                              ? _productVariantItems2(
+                                  press: (index) {
+                                    product.changeIndexVariantCard2(index);
+                                  },
+                                  variantName: "${product.variantName2}:",
+                                  indexVariantCard: product.indexVariantCard2)
+                              : const SizedBox(),
+                          Divider(color: Colors.grey.shade400),
+                          SizedBox(height: 12.h),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: DefaultOutlinedButton(
+                                    text: "Beli",
+                                    press: () {},
+                                    borderRadius: 10,
+                                    height: 50,
+                                    width: double.maxFinite),
+                              ),
+                              SizedBox(width: 12.w),
+                              Expanded(
+                                child: DefaultButton(
+                                    text: "+ Keranjang",
+                                    press: () {},
+                                    borderRadius: 10,
+                                    height: 50,
+                                    width: double.maxFinite),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -85,34 +104,42 @@ class ModalVariant extends StatelessWidget {
     );
   }
 
-  Row _productInfo({required String image}) {
-    return Row(
-      children: [
-        Image.asset(
-          image,
-          width: 100.w,
-        ),
-        SizedBox(width: 8.w),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  _productVariantCard("Merah"),
-                  SizedBox(width: 8.w),
-                  _productVariantCard("XL"),
-                ],
-              ),
-              SizedBox(height: 4.h),
-              Text(formatCurrency("125000"),
-                  style: AppTextStyles.body2SemiBold),
-              SizedBox(height: 4.h),
-              const Text("Stok: 20", style: AppTextStyles.smallText),
-            ],
+  Consumer _productInfo() {
+    return Consumer<ProductProvider>(
+      builder: (context, product, _) => Row(
+        children: [
+          Image.asset(
+            product.selectedProduct['image'],
+            width: 100.w,
           ),
-        ),
-      ],
+          SizedBox(width: 8.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    _productVariantCard(
+                        product.selectedProduct['titleVariant']),
+                    SizedBox(width: 8.w),
+                    product.selectedProduct['titleVariant2'].isNotEmpty
+                        ? _productVariantCard(
+                            product.selectedProduct['titleVariant2'])
+                        : const SizedBox(),
+                  ],
+                ),
+                SizedBox(height: 4.h),
+                Text(
+                    formatCurrency(product.selectedProduct['price'].toString()),
+                    style: AppTextStyles.body2SemiBold),
+                SizedBox(height: 4.h),
+                Text("Stok: ${product.selectedProduct['stock']}",
+                    style: AppTextStyles.smallText),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -127,35 +154,109 @@ class ModalVariant extends StatelessWidget {
     );
   }
 
-  Column productVariant({required String variantName}) {
+  Column _productVariantItems(
+      {required String variantName,
+      required int indexVariantCard,
+      required void Function(int index) press}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(variantName, style: AppTextStyles.body2SemiBold),
         SizedBox(height: 8.h),
-        Wrap(
-          children: List.generate(
-            4,
-            (index) {
-              return Padding(
-                padding: EdgeInsets.only(right: 8.w, bottom: 8.h),
-                child: _variantCard(
-                    text: "Merah", image: "assets/images/product_2.png"),
-              );
-            },
-          ),
+        Consumer<ProductProvider>(
+          builder: (context, product, _) {
+            final variantLength = product.filterVariantProduct.length;
+
+            return Wrap(
+              children: List.generate(
+                variantLength,
+                (index) {
+                  final data = product.filterVariantProduct[index];
+                  return GestureDetector(
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 8.w, bottom: 8.h),
+                      child: GestureDetector(
+                        onTap: () => press(index),
+                        child: _variantCard(
+                            borderColor: data['stock'] == 0
+                                ? Colors.grey.withOpacity(0.5)
+                                : kPrimaryColor,
+                            text: product.filterVariantProduct[index]
+                                ["titleVariant"],
+                            image: data["items"][0]["image"],
+                            backgroundColor: indexVariantCard == index
+                                ? kPrimaryColor.withOpacity(0.3)
+                                : Colors.transparent),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            );
+          },
         )
       ],
     );
   }
 
-  Container _variantCard({required String text, required String image}) {
+  Column _productVariantItems2(
+      {required String variantName,
+      required int indexVariantCard,
+      required void Function(int index) press}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(variantName, style: AppTextStyles.body2SemiBold),
+        SizedBox(height: 8.h),
+        Consumer<ProductProvider>(
+          builder: (context, product, _) {
+            final variantLength = product
+                .filterVariantProduct[product.indexVariantCard]["items"].length;
+
+            return Wrap(
+              children: List.generate(
+                variantLength,
+                (index) {
+                  final data =
+                      product.filterVariantProduct[product.indexVariantCard]
+                          ["items"][index];
+                  return Padding(
+                    padding: EdgeInsets.only(right: 8.w, bottom: 8.h),
+                    child: GestureDetector(
+                      onTap: data['stock'] > 0 ? () => press(index) : () {},
+                      child: _variantCard(
+                          text: data["titleVariantItem"],
+                          image: "",
+                          borderColor: data['stock'] == 0
+                              ? Colors.grey.withOpacity(0.5)
+                              : kPrimaryColor,
+                          backgroundColor: data['stock'] == 0
+                              ? Colors.grey.withOpacity(0.5)
+                              : indexVariantCard == index
+                                  ? kPrimaryColor.withOpacity(0.3)
+                                  : Colors.transparent),
+                    ),
+                  );
+                },
+              ),
+            );
+          },
+        )
+      ],
+    );
+  }
+
+  Container _variantCard(
+      {required String text,
+      required String image,
+      required Color backgroundColor,
+      required Color borderColor}) {
     return Container(
       constraints: const BoxConstraints(minWidth: 0, minHeight: 0),
       padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
       decoration: BoxDecoration(
-          color: Colors.transparent,
-          border: Border.all(color: Colors.grey),
+          color: backgroundColor,
+          border: Border.all(color: borderColor),
           borderRadius: BorderRadius.circular(10)),
       child: Row(
         mainAxisSize: MainAxisSize.min,

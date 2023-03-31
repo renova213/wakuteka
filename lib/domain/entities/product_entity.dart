@@ -7,7 +7,7 @@ class ProductEntity extends Equatable {
   final List<String> image;
   final String description;
   final int price;
-  final List<VariantProductEntity> variantProduct;
+  final List<ProductVariantEntity> variantProduct;
 
   const ProductEntity(
       {required this.uniqueKey,
@@ -21,7 +21,7 @@ class ProductEntity extends Equatable {
   List<Object> get props => [uniqueKey, description, image, price, title];
 }
 
-class VariantProductEntity extends Equatable {
+class ProductVariantEntity extends Equatable {
   final String variantName;
   final String variantName2;
   final String titleVariant;
@@ -30,7 +30,7 @@ class VariantProductEntity extends Equatable {
   final String image;
   final int price;
 
-  const VariantProductEntity(
+  const ProductVariantEntity(
       {required this.variantName,
       required this.variantName2,
       required this.titleVariant,

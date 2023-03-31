@@ -22,7 +22,6 @@ class Popular extends StatelessWidget {
                 product.popularProduct.length,
                 (index) {
                   final data = product.popularProduct[index];
-
                   return Padding(
                     padding: EdgeInsets.only(right: 16.w),
                     child: ProductCard(

@@ -26,40 +26,72 @@ tdk bisa=kosong.''',
         "assets/images/product_0.png",
         "assets/images/product_1.png"
       ],
-      price: 125000,
+      price: 120000,
       title: "Long Sleeve Shirts",
       variantProduct: const [
-        VariantProductEntity(
-            variantName: "Warna",
-            variantName2: "Ukuran",
-            titleVariant: "Merah",
-            titleVariant2: "S",
-            stock: 10,
-            image: "assets/images/product_0.png",
-            price: 125000),
-        VariantProductEntity(
-            variantName: "Warna",
-            variantName2: "Ukuran",
-            titleVariant: "Merah",
-            titleVariant2: "L",
-            stock: 10,
-            image: "assets/images/product_0.png",
-            price: 125000),
-        VariantProductEntity(
+        ProductVariantEntity(
             variantName: "Warna",
             variantName2: "Ukuran",
             titleVariant: "Putih",
             titleVariant2: "S",
             stock: 10,
             image: "assets/images/product_0.png",
-            price: 125000),
-        VariantProductEntity(
+            price: 120000),
+        ProductVariantEntity(
+            variantName: "Warna",
+            variantName2: "Ukuran",
+            titleVariant: "Putih",
+            titleVariant2: "M",
+            stock: 0,
+            image: "assets/images/product_0.png",
+            price: 120000),
+        ProductVariantEntity(
             variantName: "Warna",
             variantName2: "Ukuran",
             titleVariant: "Putih",
             titleVariant2: "L",
+            stock: 0,
+            image: "assets/images/product_0.png",
+            price: 123000),
+        ProductVariantEntity(
+            variantName: "Warna",
+            variantName2: "Ukuran",
+            titleVariant: "Putih",
+            titleVariant2: "XL",
             stock: 10,
             image: "assets/images/product_0.png",
+            price: 125000),
+        ProductVariantEntity(
+            variantName: "Warna",
+            variantName2: "Ukuran",
+            titleVariant: "Hitam",
+            titleVariant2: "S",
+            stock: 10,
+            image: "assets/images/product_1.png",
+            price: 120000),
+        ProductVariantEntity(
+            variantName: "Warna",
+            variantName2: "Ukuran",
+            titleVariant: "Hitam",
+            titleVariant2: "M",
+            stock: 10,
+            image: "assets/images/product_1.png",
+            price: 120000),
+        ProductVariantEntity(
+            variantName: "Warna",
+            variantName2: "Ukuran",
+            titleVariant: "Hitam",
+            titleVariant2: "L",
+            stock: 10,
+            image: "assets/images/product_1.png",
+            price: 123000),
+        ProductVariantEntity(
+            variantName: "Warna",
+            variantName2: "Ukuran",
+            titleVariant: "Hitam",
+            titleVariant2: "XL",
+            stock: 0,
+            image: "assets/images/product_1.png",
             price: 125000),
       ],
     ),
@@ -79,114 +111,54 @@ stok yg ready bisa dicek saat tbh ke keranjang,
 bisa diklik=ready,
 tdk bisa=kosong.''',
       image: const [
-        "assets/images/product_0.png",
-        "assets/images/product_1.png"
+        "assets/images/product_2.png",
+        "assets/images/product_3.png"
       ],
-      price: 125000,
-      title: "Long Sleeve Shirts",
+      price: 100000,
+      title: "Long Shirts",
       variantProduct: const [
-        VariantProductEntity(
-            variantName: "Warna",
-            variantName2: "Ukuran",
-            titleVariant: "Merah",
-            titleVariant2: "S",
-            stock: 10,
-            image: "assets/images/product_0.png",
-            price: 125000),
-        VariantProductEntity(
-            variantName: "Warna",
-            variantName2: "Ukuran",
-            titleVariant: "Merah",
-            titleVariant2: "L",
-            stock: 10,
-            image: "assets/images/product_0.png",
-            price: 125000),
-        VariantProductEntity(
-            variantName: "Warna",
-            variantName2: "Ukuran",
-            titleVariant: "Putih",
-            titleVariant2: "S",
-            stock: 10,
-            image: "assets/images/product_0.png",
-            price: 125000),
-        VariantProductEntity(
-            variantName: "Warna",
-            variantName2: "Ukuran",
-            titleVariant: "Putih",
-            titleVariant2: "L",
-            stock: 10,
-            image: "assets/images/product_0.png",
-            price: 125000),
-        VariantProductEntity(
-            variantName: "Warna",
-            variantName2: "Ukuran",
-            titleVariant: "Putih",
-            titleVariant2: "XL",
-            stock: 10,
-            image: "assets/images/product_0.png",
-            price: 125000),
-      ],
-    ),
-    ProductEntity(
-      uniqueKey: UniqueKey(),
-      description: '''kemeja lengan pendek hem
-bahan kaos
-merk boss
-.
-warna sesuai foto
-keterangan size ada di foto
-..
-stok yg ready bisa dicek saat tbh ke keranjang,
-bisa diklik=ready,
-tdk bisa=kosong.''',
-      image: const [
-        "assets/images/product_3.png",
-        "assets/images/product_1.png"
-      ],
-      price: 125000,
-      title: "Long Sleeve Shirts",
-      variantProduct: const [
-        VariantProductEntity(
+        ProductVariantEntity(
             variantName: "Warna",
             variantName2: "",
             titleVariant: "Merah",
             titleVariant2: "",
             stock: 10,
-            image: "assets/images/product_0.png",
-            price: 125000),
-        VariantProductEntity(
+            image: "assets/images/product_2.png",
+            price: 100000),
+        ProductVariantEntity(
             variantName: "Warna",
             variantName2: "",
             titleVariant: "Hijau",
             titleVariant2: "",
             stock: 10,
-            image: "assets/images/product_0.png",
-            price: 125000),
-        VariantProductEntity(
-            variantName: "Warna",
-            variantName2: "",
-            titleVariant: "Hijau",
-            titleVariant2: "",
-            stock: 10,
-            image: "assets/images/product_0.png",
-            price: 125000),
+            image: "assets/images/product_3.png",
+            price: 105000),
       ],
     ),
   ];
   List<Map<String, dynamic>> _filterVariantProduct = [];
+  int _indexVariantCard = 0;
+  int _indexVariantCard2 = 0;
   String _variantName = "";
   String _variantName2 = "";
+  Map<String, dynamic> _selectedProduct = {};
 
   List<Map<String, dynamic>> get cardProductCategoryItems =>
       _cardProductCategoryItems;
   List<ProductEntity> get newArrivalProduct => _newArrivalProduct;
   List<ProductEntity> get popularProduct => _popularProduct;
   List<Map<String, dynamic>> get filterVariantProduct => _filterVariantProduct;
+  Map<String, dynamic> get selectedProduct => _selectedProduct;
+  int get indexVariantCard => _indexVariantCard;
+  int get indexVariantCard2 => _indexVariantCard2;
   String get variantName => _variantName;
   String get variantName2 => _variantName2;
 
+  //Filter varian produk
   Future<void> extractVariantName(
-      List<VariantProductEntity> variantProducts) async {
+      List<ProductVariantEntity> variantProducts) async {
+    _variantName = "";
+    _variantName2 = "";
     List<String> variantName = [];
     List<String> variantName2 = [];
 
@@ -200,7 +172,9 @@ tdk bisa=kosong.''',
         }
       }
     }
+
     _variantName = variantName.first;
+
     if (variantName2.isNotEmpty) {
       _variantName2 = variantName2.first;
     }
@@ -208,7 +182,7 @@ tdk bisa=kosong.''',
   }
 
   Future<void> extractTitleVariantName(
-      List<VariantProductEntity> variantProducts) async {
+      List<ProductVariantEntity> variantProducts) async {
     _filterVariantProduct = [];
     List<String> filterTitleVariant = [];
 
@@ -241,7 +215,7 @@ tdk bisa=kosong.''',
   }
 
   Future<void> extractVariant(
-      List<VariantProductEntity> variantProducts) async {
+      List<ProductVariantEntity> variantProducts) async {
     for (var i = 0; i < _filterVariantProduct.length; i++) {
       for (var j = 0; j < variantProducts.length; j++) {
         if (_filterVariantProduct[i]["titleVariant"] ==
@@ -279,5 +253,47 @@ tdk bisa=kosong.''',
       }
     }
     notifyListeners();
+  }
+
+  Future<void> changeIndexVariantCard(int index) async {
+    _indexVariantCard = index;
+    selectedVariantProduct();
+    notifyListeners();
+  }
+
+  void changeIndexVariantCard2(int index) {
+    _indexVariantCard2 = index;
+    selectedVariantProduct();
+    notifyListeners();
+  }
+
+  void selectedVariantProduct() {
+    final Map<String, dynamic> selectedVariantMap = {};
+    if (_variantName2.isNotEmpty) {
+      selectedVariantMap["titleVariant"] =
+          _filterVariantProduct[_indexVariantCard]["titleVariant"];
+      selectedVariantMap["titleVariant2"] =
+          _filterVariantProduct[_indexVariantCard]["items"][_indexVariantCard2]
+              ["titleVariantItem"];
+      selectedVariantMap["stock"] = _filterVariantProduct[_indexVariantCard]
+          ["items"][_indexVariantCard2]["stock"];
+      selectedVariantMap["image"] = _filterVariantProduct[_indexVariantCard]
+          ["items"][_indexVariantCard2]["image"];
+      selectedVariantMap["price"] = _filterVariantProduct[_indexVariantCard]
+          ["items"][_indexVariantCard2]["price"];
+    }
+
+    if (_variantName2.isEmpty) {
+      selectedVariantMap["titleVariant2"] = "";
+      selectedVariantMap["titleVariant"] =
+          _filterVariantProduct[_indexVariantCard]["titleVariant"];
+      selectedVariantMap["stock"] =
+          _filterVariantProduct[_indexVariantCard]["items"][0]["stock"];
+      selectedVariantMap["image"] =
+          _filterVariantProduct[_indexVariantCard]["items"][0]["image"];
+      selectedVariantMap["price"] =
+          _filterVariantProduct[_indexVariantCard]["items"][0]["price"];
+    }
+    _selectedProduct = selectedVariantMap;
   }
 }

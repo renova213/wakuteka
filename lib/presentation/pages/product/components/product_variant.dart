@@ -3,21 +3,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:wakuteka/presentation/pages/product/components/exports.dart';
 
+import '../../../../domain/domain.dart';
 import '../../../presentation.dart';
 
 class ProductVariant extends StatelessWidget {
-  const ProductVariant({super.key});
+  final ProductEntity product;
+  const ProductVariant({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
     return Consumer<ProductProvider>(
       builder: (context, product, _) {
-        final variantLength = product.filterVariantProduct.isNotEmpty
-            ? product.filterVariantProduct[0]["items"].length
+        final variantLength = product.filterVariantProduct.length;
+        final variant2Length = product.variantName2.isNotEmpty
+            ? product
+                .filterVariantProduct[product.indexVariantCard]["items"].length
             : 0;
-        final variant2Length = product.filterVariantProduct.isNotEmpty
-            ? product.filterVariantProduct[1]["items"].length
-            : 0;
+
         final variantName = product.variantName;
         final variantName2 = product.variantName2;
         return Column(
@@ -39,6 +41,9 @@ class ProductVariant extends StatelessWidget {
                     return Padding(
                       padding: EdgeInsets.only(right: 8.w),
                       child: _variantCard(
+                          backgroundColor: product.indexVariantCard == index
+                              ? kPrimaryColor.withOpacity(0.2)
+                              : Colors.transparent,
                           text: data["titleVariant"],
                           image: data["items"][0]["image"]),
                     );
@@ -66,7 +71,7 @@ class ProductVariant extends StatelessWidget {
               const Text("Pilih Varian: ", style: AppTextStyles.body2SemiBold),
               Expanded(
                 child: Text(
-                    "$variantLength $variantName $variant2Length $variantName2",
+                    "${variantLength > 0 ? variantLength : ""} $variantName ${variant2Length > 0 ? variant2Length : ""} $variantName2",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: AppTextStyles.smallText
@@ -78,7 +83,7 @@ class ProductVariant extends StatelessWidget {
         TextButton(
           onPressed: () {
             GeneralDialog.generalDialog(
-                context: context, screen: const ModalVariant());
+                context: context, screen: ModalVariant(product: product));
           },
           child: Text("Lihat Semua",
               style: AppTextStyles.body2Bold.copyWith(color: kPrimaryColor)),
@@ -87,12 +92,15 @@ class ProductVariant extends StatelessWidget {
     );
   }
 
-  Container _variantCard({required String text, required String image}) {
+  Container _variantCard(
+      {required String text,
+      required String image,
+      required Color backgroundColor}) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
       decoration: BoxDecoration(
-          color: Colors.transparent,
-          border: Border.all(color: Colors.grey),
+          color: backgroundColor,
+          border: Border.all(color: kPrimaryColor),
           borderRadius: BorderRadius.circular(10)),
       child: Row(
         children: [
