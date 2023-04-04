@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:wakuteka/presentation/pages/home/components/section_title.dart';
 
 import '../../../presentation.dart';
 
@@ -10,25 +11,36 @@ class Categories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Consumer<ProductProvider>(
-        builder: (context, product, _) => Row(
-          children: List.generate(
-            product.cardProductCategoryItems.length,
-            (index) {
-              final data = product.cardProductCategoryItems[index];
-              return Padding(
-                padding: EdgeInsets.only(right: 8.w),
-                child: CategoryCard(
-                  iconAsset: data['assetIcon'],
-                  label: data['labelText'],
-                  press: () {},
-                ),
-              );
-            },
+    return Padding(
+      padding: EdgeInsets.only(left: 24.w),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(right: 24.w),
+            child: SectionTitle(title: "Categories", press: () {}),
           ),
-        ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Consumer<ProductProvider>(
+              builder: (context, product, _) => Row(
+                children: List.generate(
+                  product.cardProductCategoryItems.length,
+                  (index) {
+                    final data = product.cardProductCategoryItems[index];
+                    return Padding(
+                      padding: EdgeInsets.only(right: 8.w),
+                      child: CategoryCard(
+                        iconAsset: data['assetIcon'],
+                        label: data['labelText'],
+                        press: () {},
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

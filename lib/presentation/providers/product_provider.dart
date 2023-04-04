@@ -9,7 +9,7 @@ class ProductProvider extends ChangeNotifier {
     {"assetIcon": "assets/icons/Tshirt.svg", "labelText": "Tshirt"},
   ];
 
-  final List<ProductEntity> _newArrivalProduct = [
+  final List<ProductEntity> _productHightlighter = [
     ProductEntity(
       uniqueKey: UniqueKey(),
       description: '''kemeja lengan pendek hem
@@ -95,9 +95,6 @@ tdk bisa=kosong.''',
             price: 125000),
       ],
     ),
-  ];
-
-  final List<ProductEntity> _popularProduct = [
     ProductEntity(
       uniqueKey: UniqueKey(),
       description: '''kemeja lengan pendek hem
@@ -114,25 +111,25 @@ tdk bisa=kosong.''',
         "assets/images/product_2.png",
         "assets/images/product_3.png"
       ],
-      price: 100000,
-      title: "Long Shirts",
+      price: 120000,
+      title: "Short Sleeve Shirts",
       variantProduct: const [
         ProductVariantEntity(
             variantName: "Warna",
             variantName2: "",
-            titleVariant: "Merah",
+            titleVariant: "Putih",
             titleVariant2: "",
             stock: 10,
             image: "assets/images/product_2.png",
-            price: 100000),
+            price: 120000),
         ProductVariantEntity(
             variantName: "Warna",
             variantName2: "",
-            titleVariant: "Hijau",
+            titleVariant: "Hitam",
             titleVariant2: "",
-            stock: 10,
+            stock: 0,
             image: "assets/images/product_3.png",
-            price: 105000),
+            price: 125000),
       ],
     ),
   ];
@@ -145,8 +142,7 @@ tdk bisa=kosong.''',
 
   List<Map<String, dynamic>> get cardProductCategoryItems =>
       _cardProductCategoryItems;
-  List<ProductEntity> get newArrivalProduct => _newArrivalProduct;
-  List<ProductEntity> get popularProduct => _popularProduct;
+  List<ProductEntity> get productHightlighter => _productHightlighter;
   List<Map<String, dynamic>> get filterVariantProduct => _filterVariantProduct;
   Map<String, dynamic> get selectedProduct => _selectedProduct;
   int get indexVariantCard => _indexVariantCard;
