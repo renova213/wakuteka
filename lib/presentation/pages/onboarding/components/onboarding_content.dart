@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../presentation.dart';
+import '../../../../configs/config.dart';
 
 class OnboardingContent extends StatelessWidget {
   final String text, image;
@@ -13,7 +13,8 @@ class OnboardingContent extends StatelessWidget {
       children: [
         Text(
           "WAKUTEKA",
-          style: AppTextStyles.heading1.copyWith(color: kPrimaryColor),
+          style:
+              ThemeConfig.heading1.copyWith(color: ThemeConfig.kPrimaryColor),
         ),
         Text(text, textAlign: TextAlign.center),
         const Spacer(),

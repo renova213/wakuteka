@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../presentation.dart';
+import '../../../configs/config.dart';
 
 class TransitionPage {
   static Route<dynamic> fadeTransition(RouteSettings settings, Widget page) {

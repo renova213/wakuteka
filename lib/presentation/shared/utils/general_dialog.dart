@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../presentation.dart';
+import '../../../configs/config.dart';
 
 class GeneralDialog {
   static void generalDialog(

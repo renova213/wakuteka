@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:wakuteka/presentation/pages/product/components/exports.dart';
 
+import '../../../../configs/config.dart';
 import '../../../../domain/domain.dart';
 import '../../../presentation.dart';
 
@@ -15,21 +16,21 @@ class ProductVariant extends StatelessWidget {
     return Consumer<ProductProvider>(
       builder: (context, product, _) {
         final variantLength = product.filterVariantProduct.length;
-        final variant2Length = product.variantName2.isNotEmpty
+        final variant2Length = product.subVariant.isNotEmpty
             ? product
                 .filterVariantProduct[product.indexVariantCard]["items"].length
             : 0;
 
-        final variantName = product.variantName;
-        final variantName2 = product.variantName2;
+        final variant = product.variant;
+        final subVariant = product.subVariant;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _sectionTitle(
                 variantLength: variantLength,
-                variantName: variantName,
+                variant: variant,
                 variant2Length: variant2Length,
-                variantName2: variantName2,
+                subVariant: subVariant,
                 context: context),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -42,7 +43,7 @@ class ProductVariant extends StatelessWidget {
                       padding: EdgeInsets.only(right: 8.w),
                       child: _variantCard(
                           backgroundColor: product.indexVariantCard == index
-                              ? kPrimaryColor.withOpacity(0.2)
+                              ? ThemeConfig.kPrimaryColor.withOpacity(0.2)
                               : Colors.transparent,
                           text: data["titleVariant"],
                           image: data["items"][0]["image"]),
@@ -60,21 +61,21 @@ class ProductVariant extends StatelessWidget {
   Row _sectionTitle(
       {required int variantLength,
       required int variant2Length,
-      required String variantName,
-      required String variantName2,
+      required String variant,
+      required String subVariant,
       required BuildContext context}) {
     return Row(
       children: [
         Expanded(
           child: Row(
             children: [
-              const Text("Pilih Varian: ", style: AppTextStyles.body2SemiBold),
+              Text("Pilih Varian: ", style: ThemeConfig.body2SemiBold),
               Expanded(
                 child: Text(
-                    "${variantLength > 0 ? variantLength : ""} $variantName ${variant2Length > 0 ? variant2Length : ""} $variantName2",
+                    "${variantLength > 0 ? variantLength : ""} $variant ${variant2Length > 0 ? variant2Length : ""} $subVariant",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: AppTextStyles.smallText
+                    style: ThemeConfig.smallText
                         .copyWith(color: Colors.grey.shade800)),
               ),
             ],
@@ -86,7 +87,8 @@ class ProductVariant extends StatelessWidget {
                 context: context, screen: ModalVariant(product: product));
           },
           child: Text("Lihat Semua",
-              style: AppTextStyles.body2Bold.copyWith(color: kPrimaryColor)),
+              style: ThemeConfig.body2Bold
+                  .copyWith(color: ThemeConfig.kPrimaryColor)),
         ),
       ],
     );
@@ -100,13 +102,13 @@ class ProductVariant extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
       decoration: BoxDecoration(
           color: backgroundColor,
-          border: Border.all(color: kPrimaryColor),
+          border: Border.all(color: ThemeConfig.kPrimaryColor),
           borderRadius: BorderRadius.circular(10)),
       child: Row(
         children: [
           image.isNotEmpty ? Image.asset(image, width: 20.w) : const SizedBox(),
           image.isNotEmpty ? SizedBox(width: 4.w) : const SizedBox(),
-          Text(text, style: AppTextStyles.body2Light),
+          Text(text, style: ThemeConfig.body2Light),
         ],
       ),
     );

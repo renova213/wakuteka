@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../presentation.dart';
+import '../../../configs/config.dart';
 
 class DefaultOutlinedButton extends StatelessWidget {
   final String text;
@@ -29,23 +29,24 @@ class DefaultOutlinedButton extends StatelessWidget {
               if (states.contains(MaterialState.pressed)) {
                 return Colors.white;
               }
-              return kPrimaryColor;
+              return ThemeConfig.kPrimaryColor;
             },
           ),
           textStyle: MaterialStateProperty.resolveWith(
             (Set<MaterialState> states) {
               if (states.contains(MaterialState.pressed)) {
-                return AppTextStyles.body2Bold.copyWith(color: Colors.white);
+                return ThemeConfig.body2Bold.copyWith(color: Colors.white);
               }
-              return AppTextStyles.body2Bold.copyWith(color: kPrimaryColor);
+              return ThemeConfig.body2Bold
+                  .copyWith(color: ThemeConfig.kPrimaryColor);
             },
           ),
           side: MaterialStateProperty.all<BorderSide>(
-              const BorderSide(width: 1, color: kPrimaryColor)),
+              const BorderSide(width: 1, color: ThemeConfig.kPrimaryColor)),
           overlayColor: MaterialStateProperty.resolveWith<Color?>(
             (Set<MaterialState> states) {
               if (states.contains(MaterialState.pressed)) {
-                return kPrimaryColor;
+                return ThemeConfig.kPrimaryColor;
               }
               return null;
             },
@@ -53,7 +54,7 @@ class DefaultOutlinedButton extends StatelessWidget {
           backgroundColor: MaterialStateProperty.resolveWith<Color?>(
             (Set<MaterialState> states) {
               if (states.contains(MaterialState.pressed)) {
-                return kPrimaryColor;
+                return ThemeConfig.kPrimaryColor;
               }
               return Colors.white;
             },

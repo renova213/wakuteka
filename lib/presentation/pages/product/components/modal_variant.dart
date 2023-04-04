@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:wakuteka/presentation/presentation.dart';
 
+import '../../../../configs/config.dart';
 import '../../../../domain/domain.dart';
 
 class ModalVariant extends StatelessWidget {
@@ -45,15 +46,15 @@ class ModalVariant extends StatelessWidget {
                               press: (index) {
                                 product.changeIndexVariantCard(index);
                               },
-                              variantName: "${product.variantName}:",
+                              variant: "${product.variant}:",
                               indexVariantCard: product.indexVariantCard),
                           SizedBox(height: 12.h),
-                          product.variantName2.isNotEmpty
+                          product.subVariant.isNotEmpty
                               ? _productVariantItems2(
                                   press: (index) {
                                     product.changeIndexVariantCard2(index);
                                   },
-                                  variantName: "${product.variantName2}:",
+                                  variant: "${product.subVariant}:",
                                   indexVariantCard: product.indexVariantCard2)
                               : const SizedBox(),
                           Divider(color: Colors.grey.shade400),
@@ -96,7 +97,7 @@ class ModalVariant extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text("Varian Produk", style: AppTextStyles.body1SemiBold),
+        Text("Varian Produk", style: ThemeConfig.body1SemiBold),
         GestureDetector(
             onTap: () => Navigator.pop(context),
             child: Icon(Icons.close, color: Colors.grey.shade600, size: 30.w)),
@@ -131,10 +132,10 @@ class ModalVariant extends StatelessWidget {
                 SizedBox(height: 4.h),
                 Text(
                     formatCurrency(product.selectedProduct['price'].toString()),
-                    style: AppTextStyles.body2SemiBold),
+                    style: ThemeConfig.body2SemiBold),
                 SizedBox(height: 4.h),
                 Text("Stok: ${product.selectedProduct['stock']}",
-                    style: AppTextStyles.smallText),
+                    style: ThemeConfig.smallText),
               ],
             ),
           ),
@@ -149,19 +150,19 @@ class ModalVariant extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.grey.shade300, borderRadius: BorderRadius.circular(5)),
       child: Text(text,
-          style: AppTextStyles.caption.copyWith(
+          style: ThemeConfig.caption.copyWith(
               fontWeight: FontWeight.w500, color: Colors.grey.shade800)),
     );
   }
 
   Column _productVariantItems(
-      {required String variantName,
+      {required String variant,
       required int indexVariantCard,
       required void Function(int index) press}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(variantName, style: AppTextStyles.body2SemiBold),
+        Text(variant, style: ThemeConfig.body2SemiBold),
         SizedBox(height: 8.h),
         Consumer<ProductProvider>(
           builder: (context, product, _) {
@@ -180,12 +181,12 @@ class ModalVariant extends StatelessWidget {
                         child: _variantCard(
                             borderColor: data['stock'] == 0
                                 ? Colors.grey.withOpacity(0.5)
-                                : kPrimaryColor,
+                                : ThemeConfig.kPrimaryColor,
                             text: product.filterVariantProduct[index]
                                 ["titleVariant"],
                             image: data["items"][0]["image"],
                             backgroundColor: indexVariantCard == index
-                                ? kPrimaryColor.withOpacity(0.3)
+                                ? ThemeConfig.kPrimaryColor.withOpacity(0.3)
                                 : Colors.transparent),
                       ),
                     ),
@@ -200,13 +201,13 @@ class ModalVariant extends StatelessWidget {
   }
 
   Column _productVariantItems2(
-      {required String variantName,
+      {required String variant,
       required int indexVariantCard,
       required void Function(int index) press}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(variantName, style: AppTextStyles.body2SemiBold),
+        Text(variant, style: ThemeConfig.body2SemiBold),
         SizedBox(height: 8.h),
         Consumer<ProductProvider>(
           builder: (context, product, _) {
@@ -229,11 +230,11 @@ class ModalVariant extends StatelessWidget {
                           image: "",
                           borderColor: data['stock'] == 0
                               ? Colors.grey.withOpacity(0.5)
-                              : kPrimaryColor,
+                              : ThemeConfig.kPrimaryColor,
                           backgroundColor: data['stock'] == 0
                               ? Colors.grey.withOpacity(0.5)
                               : indexVariantCard == index
-                                  ? kPrimaryColor.withOpacity(0.3)
+                                  ? ThemeConfig.kPrimaryColor.withOpacity(0.3)
                                   : Colors.transparent),
                     ),
                   );
@@ -263,7 +264,7 @@ class ModalVariant extends StatelessWidget {
         children: [
           image.isNotEmpty ? Image.asset(image, width: 20.w) : const SizedBox(),
           image.isNotEmpty ? SizedBox(width: 4.w) : const SizedBox(),
-          Text(text, style: AppTextStyles.body2Light),
+          Text(text, style: ThemeConfig.body2Light),
         ],
       ),
     );

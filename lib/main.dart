@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'configs/config.dart';
 import 'presentation/presentation.dart';
 
 void main() async {
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
             }
           },
           debugShowCheckedModeBanner: false,
-          theme: theme(),
+          theme: ThemeConfig.theme(),
           initialRoute: SplashPage.routeName,
         ),
       ),

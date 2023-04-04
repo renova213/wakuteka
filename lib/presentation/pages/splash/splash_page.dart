@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../presentation.dart';
+import '../../../configs/config.dart';
 import 'body.dart';
 
 class SplashPage extends StatefulWidget {

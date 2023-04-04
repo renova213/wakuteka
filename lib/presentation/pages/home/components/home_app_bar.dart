@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../configs/config.dart';
 import '../../../presentation.dart';
 import 'package:badges/badges.dart' as badges;
 
@@ -12,7 +13,7 @@ class HomeAppBar extends StatelessWidget {
       height: 220.h,
       width: double.maxFinite,
       decoration: const BoxDecoration(
-        color: kPrimaryColor,
+        color: ThemeConfig.kPrimaryColor,
         borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(25), bottomRight: Radius.circular(25)),
       ),
@@ -26,7 +27,8 @@ class HomeAppBar extends StatelessWidget {
               children: [
                 DefaultIconButton(
                   press: () {},
-                  icon: Icon(Icons.sort, size: 30.r, color: kPrimaryLightColor),
+                  icon: Icon(Icons.sort,
+                      size: 30.r, color: ThemeConfig.kPrimaryLightColor),
                 ),
                 const Spacer(),
                 badges.Badge(
@@ -37,7 +39,7 @@ class HomeAppBar extends StatelessWidget {
                   child: DefaultIconButton(
                     press: () {},
                     icon: const Icon(Icons.shopping_cart_outlined,
-                        color: kPrimaryLightColor),
+                        color: ThemeConfig.kPrimaryLightColor),
                   ),
                 ),
                 SizedBox(width: 16.w),
@@ -47,8 +49,8 @@ class HomeAppBar extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: 32.w),
               child: Text("Hello, user",
-                  style:
-                      AppTextStyles.heading4.copyWith(color: kSecondTextColor)),
+                  style: ThemeConfig.heading4
+                      .copyWith(color: ThemeConfig.kSecondTextColor)),
             ),
             SizedBox(height: 24.h),
             _searchBar(),
@@ -70,7 +72,7 @@ class HomeAppBar extends StatelessWidget {
           isDense: true,
           fillColor: Colors.white,
           suffixIcon: Icon(Icons.search,
-              color: kPrimaryColor.withOpacity(0.7), size: 30.r),
+              color: ThemeConfig.kPrimaryColor.withOpacity(0.7), size: 30.r),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide.none),

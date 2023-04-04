@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../presentation.dart';
+import '../../../../configs/config.dart';
 
 class SectionTitle extends StatelessWidget {
   final String title;
@@ -15,11 +15,12 @@ class SectionTitle extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AppTextStyles.body1SemiBold,
+          style: ThemeConfig.body1SemiBold,
         ),
         IconButton(
             onPressed: press,
-            icon: Icon(Icons.more_horiz, color: kPrimaryColor, size: 30.r)),
+            icon: Icon(Icons.more_horiz,
+                color: ThemeConfig.kPrimaryColor, size: 30.r)),
       ],
     );
   }

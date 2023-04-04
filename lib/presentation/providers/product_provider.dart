@@ -9,135 +9,12 @@ class ProductProvider extends ChangeNotifier {
     {"assetIcon": "assets/icons/Tshirt.svg", "labelText": "Tshirt"},
   ];
 
-  final List<ProductEntity> _productHightlighter = [
-    ProductEntity(
-      uniqueKey: UniqueKey(),
-      description: '''kemeja lengan pendek hem
-bahan kaos
-merk boss
-.
-warna sesuai foto
-keterangan size ada di foto
-..
-stok yg ready bisa dicek saat tbh ke keranjang,
-bisa diklik=ready,
-tdk bisa=kosong.''',
-      image: const [
-        "assets/images/product_0.png",
-        "assets/images/product_1.png"
-      ],
-      price: 120000,
-      title: "Long Sleeve Shirts",
-      variantProduct: const [
-        ProductVariantEntity(
-            variantName: "Warna",
-            variantName2: "Ukuran",
-            titleVariant: "Putih",
-            titleVariant2: "S",
-            stock: 10,
-            image: "assets/images/product_0.png",
-            price: 120000),
-        ProductVariantEntity(
-            variantName: "Warna",
-            variantName2: "Ukuran",
-            titleVariant: "Putih",
-            titleVariant2: "M",
-            stock: 0,
-            image: "assets/images/product_0.png",
-            price: 120000),
-        ProductVariantEntity(
-            variantName: "Warna",
-            variantName2: "Ukuran",
-            titleVariant: "Putih",
-            titleVariant2: "L",
-            stock: 0,
-            image: "assets/images/product_0.png",
-            price: 123000),
-        ProductVariantEntity(
-            variantName: "Warna",
-            variantName2: "Ukuran",
-            titleVariant: "Putih",
-            titleVariant2: "XL",
-            stock: 10,
-            image: "assets/images/product_0.png",
-            price: 125000),
-        ProductVariantEntity(
-            variantName: "Warna",
-            variantName2: "Ukuran",
-            titleVariant: "Hitam",
-            titleVariant2: "S",
-            stock: 10,
-            image: "assets/images/product_1.png",
-            price: 120000),
-        ProductVariantEntity(
-            variantName: "Warna",
-            variantName2: "Ukuran",
-            titleVariant: "Hitam",
-            titleVariant2: "M",
-            stock: 10,
-            image: "assets/images/product_1.png",
-            price: 120000),
-        ProductVariantEntity(
-            variantName: "Warna",
-            variantName2: "Ukuran",
-            titleVariant: "Hitam",
-            titleVariant2: "L",
-            stock: 10,
-            image: "assets/images/product_1.png",
-            price: 123000),
-        ProductVariantEntity(
-            variantName: "Warna",
-            variantName2: "Ukuran",
-            titleVariant: "Hitam",
-            titleVariant2: "XL",
-            stock: 0,
-            image: "assets/images/product_1.png",
-            price: 125000),
-      ],
-    ),
-    ProductEntity(
-      uniqueKey: UniqueKey(),
-      description: '''kemeja lengan pendek hem
-bahan kaos
-merk boss
-.
-warna sesuai foto
-keterangan size ada di foto
-..
-stok yg ready bisa dicek saat tbh ke keranjang,
-bisa diklik=ready,
-tdk bisa=kosong.''',
-      image: const [
-        "assets/images/product_2.png",
-        "assets/images/product_3.png"
-      ],
-      price: 120000,
-      title: "Short Sleeve Shirts",
-      variantProduct: const [
-        ProductVariantEntity(
-            variantName: "Warna",
-            variantName2: "",
-            titleVariant: "Putih",
-            titleVariant2: "",
-            stock: 10,
-            image: "assets/images/product_2.png",
-            price: 120000),
-        ProductVariantEntity(
-            variantName: "Warna",
-            variantName2: "",
-            titleVariant: "Hitam",
-            titleVariant2: "",
-            stock: 0,
-            image: "assets/images/product_3.png",
-            price: 125000),
-      ],
-    ),
-  ];
+  final List<ProductEntity> _productHightlighter = [];
   List<Map<String, dynamic>> _filterVariantProduct = [];
   int _indexVariantCard = 0;
   int _indexVariantCard2 = 0;
-  String _variantName = "";
-  String _variantName2 = "";
+  String _variant = "";
+  String _subVariant = "";
   Map<String, dynamic> _selectedProduct = {};
 
   List<Map<String, dynamic>> get cardProductCategoryItems =>
@@ -147,37 +24,37 @@ tdk bisa=kosong.''',
   Map<String, dynamic> get selectedProduct => _selectedProduct;
   int get indexVariantCard => _indexVariantCard;
   int get indexVariantCard2 => _indexVariantCard2;
-  String get variantName => _variantName;
-  String get variantName2 => _variantName2;
+  String get variant => _variant;
+  String get subVariant => _subVariant;
 
   //Filter varian produk
-  Future<void> extractVariantName(
+  Future<void> extractVariant(
       List<ProductVariantEntity> variantProducts) async {
-    _variantName = "";
-    _variantName2 = "";
-    List<String> variantName = [];
-    List<String> variantName2 = [];
+    _variant = "";
+    _subVariant = "";
+    List<String> variant = [];
+    List<String> subVariant = [];
 
     for (var i in variantProducts) {
-      if (!variantName.contains(i.variantName)) {
-        variantName.add(i.variantName);
+      if (!variant.contains(i.variant)) {
+        variant.add(i.variant);
       }
-      if (i.variantName2.isNotEmpty) {
-        if (!variantName2.contains(i.variantName2)) {
-          variantName2.add(i.variantName2);
+      if (i.subVariant.isNotEmpty) {
+        if (!subVariant.contains(i.subVariant)) {
+          subVariant.add(i.subVariant);
         }
       }
     }
 
-    _variantName = variantName.first;
+    _variant = variant.first;
 
-    if (variantName2.isNotEmpty) {
-      _variantName2 = variantName2.first;
+    if (subVariant.isNotEmpty) {
+      _subVariant = subVariant.first;
     }
     notifyListeners();
   }
 
-  Future<void> extractTitleVariantName(
+  Future<void> extractTitlevariant(
       List<ProductVariantEntity> variantProducts) async {
     _filterVariantProduct = [];
     List<String> filterTitleVariant = [];
@@ -192,13 +69,13 @@ tdk bisa=kosong.''',
 
     for (var i = 0; i < filterTitleVariant.length; i++) {
       Map<String, dynamic> filterData = {
-        "variantName": _variantName,
+        "variant": _variant,
         "titleVariant": filterTitleVariant[i],
         "items": []
       };
       final contain = _filterVariantProduct
           .where((e) =>
-              e["variantName"] == _variantName &&
+              e["variant"] == _variant &&
               e["titleVariant"] == filterTitleVariant[i])
           .toList();
 
@@ -210,22 +87,21 @@ tdk bisa=kosong.''',
     notifyListeners();
   }
 
-  Future<void> extractVariant(
+  Future<void> extractVariantItem(
       List<ProductVariantEntity> variantProducts) async {
     for (var i = 0; i < _filterVariantProduct.length; i++) {
       for (var j = 0; j < variantProducts.length; j++) {
         if (_filterVariantProduct[i]["titleVariant"] ==
                 variantProducts[j].titleVariant &&
-            _filterVariantProduct[i]["variantName"] ==
-                variantProducts[j].variantName) {
-          if (variantProducts[j].titleVariant2.isNotEmpty) {
+            _filterVariantProduct[i]["variant"] == variantProducts[j].variant) {
+          if (variantProducts[j].subTitleVariant.isNotEmpty) {
             final contain = (_filterVariantProduct[i]["items"] as List)
                 .where((e) =>
-                    e["titleVariantItem"] == variantProducts[j].titleVariant2)
+                    e["titleVariantItem"] == variantProducts[j].subTitleVariant)
                 .toList();
             if (contain.isEmpty) {
               _filterVariantProduct[i]["items"].add({
-                "titleVariantItem": variantProducts[j].titleVariant2,
+                "titleVariantItem": variantProducts[j].subTitleVariant,
                 "stock": variantProducts[j].stock,
                 "image": variantProducts[j].image,
                 "price": variantProducts[j].price
@@ -265,10 +141,10 @@ tdk bisa=kosong.''',
 
   void selectedVariantProduct() {
     final Map<String, dynamic> selectedVariantMap = {};
-    if (_variantName2.isNotEmpty) {
+    if (_subVariant.isNotEmpty) {
       selectedVariantMap["titleVariant"] =
           _filterVariantProduct[_indexVariantCard]["titleVariant"];
-      selectedVariantMap["titleVariant2"] =
+      selectedVariantMap["subTitleVariant"] =
           _filterVariantProduct[_indexVariantCard]["items"][_indexVariantCard2]
               ["titleVariantItem"];
       selectedVariantMap["stock"] = _filterVariantProduct[_indexVariantCard]
@@ -279,8 +155,8 @@ tdk bisa=kosong.''',
           ["items"][_indexVariantCard2]["price"];
     }
 
-    if (_variantName2.isEmpty) {
-      selectedVariantMap["titleVariant2"] = "";
+    if (_subVariant.isEmpty) {
+      selectedVariantMap["subTitleVariant"] = "";
       selectedVariantMap["titleVariant"] =
           _filterVariantProduct[_indexVariantCard]["titleVariant"];
       selectedVariantMap["stock"] =

@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:wakuteka/presentation/pages/home/components/section_title.dart';
 
+import '../../../../configs/config.dart';
 import '../../../presentation.dart';
 
 class Categories extends StatelessWidget {
@@ -80,7 +81,7 @@ class CategoryCard extends StatelessWidget {
             SizedBox(height: 8.h),
             Text(
               label,
-              style: AppTextStyles.body2Medium,
+              style: ThemeConfig.body2Medium,
             ),
           ],
         ),

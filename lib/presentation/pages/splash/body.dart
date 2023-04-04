@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../presentation.dart';
+import '../../../configs/config.dart';
 
 class Body extends StatelessWidget {
   const Body({super.key});
@@ -14,7 +14,8 @@ class Body extends StatelessWidget {
         children: [
           Text(
             "WAKUTEKA",
-            style: AppTextStyles.heading1.copyWith(color: kPrimaryColor),
+            style:
+                ThemeConfig.heading1.copyWith(color: ThemeConfig.kPrimaryColor),
           ),
           SizedBox(height: 24.h),
           Image.asset(

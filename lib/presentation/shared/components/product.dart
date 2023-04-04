@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wakuteka/domain/domain.dart';
 
+import '../../../configs/config.dart';
 import '../../presentation.dart';
 
 class ProductWidget extends StatelessWidget {
@@ -46,7 +47,7 @@ class ProductWidget extends StatelessWidget {
                 width: 120.w,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage(product.image.first), fit: BoxFit.fill),
+                      image: AssetImage(product.images.first), fit: BoxFit.fill),
                   color: Colors.grey[50],
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(20),
@@ -61,8 +62,8 @@ class ProductWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      product.title,
-                      style: AppTextStyles.smallText
+                      product.productName,
+                      style: ThemeConfig.smallText
                           .copyWith(fontWeight: FontWeight.w600),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
@@ -74,7 +75,7 @@ class ProductWidget extends StatelessWidget {
                       width: 100.w,
                       child: Text(
                         formatCurrency(product.price.toString()),
-                        style: AppTextStyles.body2SemiBold
+                        style: ThemeConfig.body2SemiBold
                             .copyWith(color: Colors.red.shade600),
                       ),
                     ),
@@ -87,7 +88,7 @@ class ProductWidget extends StatelessWidget {
                               Icon(Icons.star,
                                   color: Colors.yellow.shade700, size: 20.r),
                               SizedBox(width: 4.w),
-                              const Text("4.9", style: AppTextStyles.smallText),
+                              Text("4.9", style: ThemeConfig.smallText),
                             ],
                           ),
                           const Spacer(),

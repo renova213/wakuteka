@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../presentation.dart';
+import '../../../configs/config.dart';
 
 class DefaultButton extends StatelessWidget {
   final String text;
@@ -24,7 +24,8 @@ class DefaultButton extends StatelessWidget {
       height: height.h,
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
+          backgroundColor:
+              MaterialStateProperty.all<Color>(ThemeConfig.kPrimaryColor),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius)),
@@ -33,7 +34,7 @@ class DefaultButton extends StatelessWidget {
         onPressed: () => press(),
         child: Text(
           text,
-          style: AppTextStyles.body2Bold.copyWith(color: Colors.white),
+          style: ThemeConfig.body2Bold.copyWith(color: Colors.white),
         ),
       ),
     );

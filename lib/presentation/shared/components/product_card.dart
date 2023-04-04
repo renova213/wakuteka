@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../configs/config.dart';
 import '../../presentation.dart';
 
 class ProductCard extends StatelessWidget {
@@ -38,13 +39,13 @@ class ProductCard extends StatelessWidget {
             ),
             SizedBox(height: 8.h),
             Text(title,
-                style: AppTextStyles.smallText,
+                style: ThemeConfig.smallText,
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis),
             SizedBox(height: 8.h),
             Text(formatCurrency(price.toString()),
-                style: AppTextStyles.body2SemiBold),
+                style: ThemeConfig.body2SemiBold),
           ],
         ),
       ),

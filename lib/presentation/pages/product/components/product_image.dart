@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../presentation.dart';
+import '../../../../configs/config.dart';
 
 class ProductImage extends StatefulWidget {
   const ProductImage({super.key, required this.image, required this.uniqueKey});
@@ -38,7 +38,7 @@ class _ProductImageState extends State<ProductImage> {
                       color: Colors.black.withOpacity(0.3),
                       borderRadius: BorderRadius.circular(5)),
                   child: Text("${currentIndex + 1}/${widget.image.length}",
-                      style: AppTextStyles.smallText.copyWith(
+                      style: ThemeConfig.smallText.copyWith(
                           color: Colors.white, fontWeight: FontWeight.w600)),
                 ),
               ),

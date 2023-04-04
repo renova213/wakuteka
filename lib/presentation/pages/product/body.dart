@@ -22,15 +22,15 @@ class _BodyState extends State<Body> {
     final context = this.context;
     Future.microtask(
       () async {
-        if (widget.product.variantProduct.isNotEmpty) {
+        if (widget.product.variants.isNotEmpty) {
           await Provider.of<ProductProvider>(context, listen: false)
-              .extractVariantName(widget.product.variantProduct)
+              .extractVariant(widget.product.variants)
               .then((_) async =>
                   await Provider.of<ProductProvider>(context, listen: false)
-                      .extractTitleVariantName(widget.product.variantProduct))
+                      .extractTitlevariant(widget.product.variants))
               .then((_) async =>
                   await Provider.of<ProductProvider>(context, listen: false)
-                      .extractVariant(widget.product.variantProduct))
+                      .extractVariantItem(widget.product.variants))
               .then((_) async =>
                   await Provider.of<ProductProvider>(context, listen: false)
                       .changeIndexVariantCard(0))
@@ -47,7 +47,7 @@ class _BodyState extends State<Body> {
       child: Column(
         children: [
           ProductImage(
-            image: widget.product.image,
+            image: widget.product.images,
             uniqueKey: widget.product.uniqueKey,
           ),
           Container(
@@ -64,12 +64,12 @@ class _BodyState extends State<Body> {
                 children: [
                   InfoProduct(
                       price: widget.product.price.toString(),
-                      title: widget.product.title,
+                      title: widget.product.productName,
                       description: widget.product.description),
                   SizedBox(height: 12.h),
                   Divider(color: Colors.grey.shade300),
                   SizedBox(height: 12.h),
-                  widget.product.variantProduct.isNotEmpty
+                  widget.product.variants.isNotEmpty
                       ? ProductVariant(product: widget.product)
                       : const SizedBox(),
                   SizedBox(height: 12.h),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../presentation.dart';
+import '../../../../configs/config.dart';
 
 class BannerProduct extends StatelessWidget {
   final String bennerName;
@@ -45,16 +45,17 @@ class BannerProduct extends StatelessWidget {
                         children: [
                           Text(
                             bennerName,
-                            style: AppTextStyles.body1Bold
-                                .copyWith(color: kSecondTextColor),
+                            style: ThemeConfig.body1Bold
+                                .copyWith(color: ThemeConfig.kSecondTextColor),
                           ),
                           SizedBox(height: 8.h),
                           Row(
                             children: [
                               Text(
                                 "Shop now",
-                                style: AppTextStyles.body2Medium.copyWith(
-                                    color: kSecondTextColor.withOpacity(0.5)),
+                                style: ThemeConfig.body2Medium.copyWith(
+                                    color: ThemeConfig.kSecondTextColor
+                                        .withOpacity(0.5)),
                               ),
                               SizedBox(width: 16.w),
                               Icon(Icons.arrow_forward,

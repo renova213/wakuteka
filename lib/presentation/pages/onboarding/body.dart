@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../../../configs/config.dart';
 import 'components/onboarding_content.dart';
 import '../../presentation.dart';
 
@@ -84,7 +85,9 @@ class _BodyState extends State<Body> {
       width: currentPage == index ? 20 : 6,
       margin: const EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
-          color: currentPage == index ? kPrimaryColor : const Color(0xFFD8D8D8),
+          color: currentPage == index
+              ? ThemeConfig.kPrimaryColor
+              : const Color(0xFFD8D8D8),
           borderRadius: BorderRadius.circular(3)),
     );
   }
