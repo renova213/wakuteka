@@ -59,7 +59,7 @@ class _ProductImageState extends State<ProductImage> {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   final data = widget.image[index];
-                  return Image.asset(data, height: 325.h);
+                  return Image.network(data, height: 325.h);
                 },
                 itemCount: widget.image.length),
           ],

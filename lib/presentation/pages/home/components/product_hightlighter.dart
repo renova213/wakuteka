@@ -1,14 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:wakuteka/presentation/shared/components/product.dart';
+import 'package:wakuteka/presentation/shared/components/product_card.dart';
 
+import '../../../../domain/domain.dart';
 import '../../../presentation.dart';
 import 'exports.dart';
 
-class ProductHighlighter extends StatelessWidget {
+class ProductHighlighter extends StatefulWidget {
   final String title;
   const ProductHighlighter({super.key, required this.title});
+
+  @override
+  State<ProductHighlighter> createState() => _ProductHighlighterState();
+}
+
+class _ProductHighlighterState extends State<ProductHighlighter> {
+  List<ProductEntity> products = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() async {
+      products = await Provider.of<ProductProvider>(context, listen: false)
+          .fetchProductByCategoryName(widget.title);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,20 +35,20 @@ class ProductHighlighter extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SectionTitle(title: title, press: () {}),
+          SectionTitle(title: widget.title, press: () {}),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Consumer<ProductProvider>(
               builder: (context, product, _) => Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(
-                  product.productHightlighter.length,
+                  products.length,
                   (index) {
-                    final data = product.productHightlighter[index];
+                    final data = products[index];
 
                     return Padding(
                       padding: EdgeInsets.only(right: 16.w),
-                      child: ProductWidget(
+                      child: ProductCard(
                         uniqueKey: data.uniqueKey,
                         product: data,
                         width: 150.w,

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wakuteka/domain/domain.dart';
 
 import '../../../configs/config.dart';
 import '../../presentation.dart';
 
 class ProductCard extends StatelessWidget {
-  final String image, title;
-  final UniqueKey uniqueKey;
-  final int price;
+  final ProductEntity product;
   final VoidCallback press;
+  final UniqueKey uniqueKey;
+  final double width;
   const ProductCard(
       {super.key,
-      required this.image,
-      required this.price,
+      required this.product,
       required this.press,
       required this.uniqueKey,
-      required this.title});
+      required this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -23,30 +23,91 @@ class ProductCard extends StatelessWidget {
       onTap: press,
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(10)),
-        width: 120.w,
-        child: Column(
-          children: [
-            Container(
-              width: double.maxFinite,
-              padding: EdgeInsets.all(8.r),
-              decoration: const BoxDecoration(
-                color: Color(0xFFEFEFF2),
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-              ),
-              child: Hero(
-                  tag: uniqueKey, child: Image.asset(image, height: 135.h)),
+          color: Colors.grey[50],
+          borderRadius: const BorderRadius.all(
+            Radius.circular(10),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.7),
+              spreadRadius: 0,
+              blurRadius: 7,
+              offset: const Offset(0, 7),
             ),
-            SizedBox(height: 8.h),
-            Text(title,
-                style: ThemeConfig.smallText,
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis),
-            SizedBox(height: 8.h),
-            Text(formatCurrency(price.toString()),
-                style: ThemeConfig.body2SemiBold),
           ],
+        ),
+        child: Padding(
+          padding:
+              EdgeInsets.only(left: 14.w, top: 14.h, right: 14.h, bottom: 20.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 150.h,
+                width: 120.w,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(product.images.first),
+                      fit: BoxFit.fill),
+                  color: Colors.grey[50],
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+              ),
+              SizedBox(height: 8.h),
+              SizedBox(
+                width: 120.w,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.productName,
+                      style: ThemeConfig.smallText
+                          .copyWith(fontWeight: FontWeight.w600),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      softWrap: false,
+                    ),
+                    SizedBox(height: 8.h),
+                    SizedBox(
+                      height: 20.h,
+                      width: 100.w,
+                      child: Text(
+                        formatCurrency(product.price.toString()),
+                        style: ThemeConfig.body2SemiBold
+                            .copyWith(color: Colors.red.shade600),
+                      ),
+                    ),
+                    SizedBox(height: 8.h),
+                    SizedBox(
+                      child: Row(
+                        children: [
+                          Row(
+                            children: [
+                              Icon(Icons.star,
+                                  color: Colors.yellow.shade700, size: 20.r),
+                              SizedBox(width: 4.w),
+                              Text("4.9", style: ThemeConfig.smallText),
+                            ],
+                          ),
+                          const Spacer(),
+                          Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: () {},
+                              child: Icon(Icons.more_vert, size: 22.r),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

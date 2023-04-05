@@ -1,171 +1,68 @@
 import 'package:flutter/material.dart';
-import 'package:wakuteka/domain/entities/product_entity.dart';
+
+import '../../domain/domain.dart';
+import '../presentation.dart';
 
 class ProductProvider extends ChangeNotifier {
+  final GetProductUsecase getProductUsecase;
+
+  ProductProvider({required this.getProductUsecase});
+
   final List<Map<String, dynamic>> _cardProductCategoryItems = [
     {"assetIcon": "assets/icons/dress.svg", "labelText": "Dress"},
     {"assetIcon": "assets/icons/shirt.svg", "labelText": "Shirt"},
     {"assetIcon": "assets/icons/pants.svg", "labelText": "Pants"},
     {"assetIcon": "assets/icons/Tshirt.svg", "labelText": "Tshirt"},
   ];
-
-  final List<ProductEntity> _productHightlighter = [];
-  List<Map<String, dynamic>> _filterVariantProduct = [];
-  int _indexVariantCard = 0;
-  int _indexVariantCard2 = 0;
-  String _variant = "";
-  String _subVariant = "";
-  Map<String, dynamic> _selectedProduct = {};
+  AppState _appState = AppState.loading;
+  List<ProductEntity> _products = [];
 
   List<Map<String, dynamic>> get cardProductCategoryItems =>
       _cardProductCategoryItems;
-  List<ProductEntity> get productHightlighter => _productHightlighter;
-  List<Map<String, dynamic>> get filterVariantProduct => _filterVariantProduct;
-  Map<String, dynamic> get selectedProduct => _selectedProduct;
-  int get indexVariantCard => _indexVariantCard;
-  int get indexVariantCard2 => _indexVariantCard2;
-  String get variant => _variant;
-  String get subVariant => _subVariant;
+  List<ProductEntity> get products => _products;
+  AppState get appState => _appState;
 
-  //Filter varian produk
-  Future<void> extractVariant(
-      List<ProductVariantEntity> variantProducts) async {
-    _variant = "";
-    _subVariant = "";
-    List<String> variant = [];
-    List<String> subVariant = [];
+  //remote product
+  Future<void> fetchProduct() async {
+    changeAppState(AppState.loading);
 
-    for (var i in variantProducts) {
-      if (!variant.contains(i.variant)) {
-        variant.add(i.variant);
-      }
-      if (i.subVariant.isNotEmpty) {
-        if (!subVariant.contains(i.subVariant)) {
-          subVariant.add(i.subVariant);
-        }
-      }
-    }
+    final exceptionOrProduct = await getProductUsecase.getProduct();
 
-    _variant = variant.first;
+    exceptionOrProduct.fold(
+      (exception) {
+        changeAppState(AppState.failed);
+      },
+      (product) {
+        _products = product;
 
-    if (subVariant.isNotEmpty) {
-      _subVariant = subVariant.first;
-    }
-    notifyListeners();
+        changeAppState(AppState.loaded);
+      },
+    );
   }
 
-  Future<void> extractTitlevariant(
-      List<ProductVariantEntity> variantProducts) async {
-    _filterVariantProduct = [];
-    List<String> filterTitleVariant = [];
+  Future<List<ProductEntity>> fetchProductByCategoryName(
+      String categoryName) async {
+    List<ProductEntity> products = [];
+    changeAppState(AppState.loading);
 
-    for (var i in variantProducts) {
-      final contain =
-          filterTitleVariant.where((e) => e == i.titleVariant).toList();
-      if (contain.isEmpty) {
-        filterTitleVariant.add(i.titleVariant);
-      }
-    }
+    final exceptionOrProduct =
+        await getProductUsecase.getProductByCategoryName(categoryName);
 
-    for (var i = 0; i < filterTitleVariant.length; i++) {
-      Map<String, dynamic> filterData = {
-        "variant": _variant,
-        "titleVariant": filterTitleVariant[i],
-        "items": []
-      };
-      final contain = _filterVariantProduct
-          .where((e) =>
-              e["variant"] == _variant &&
-              e["titleVariant"] == filterTitleVariant[i])
-          .toList();
+    exceptionOrProduct.fold(
+      (exception) {
+        changeAppState(AppState.failed);
+      },
+      (product) {
+        products = product;
 
-      if (contain.isEmpty) {
-        _filterVariantProduct.add(filterData);
-      }
-    }
-
-    notifyListeners();
+        changeAppState(AppState.loaded);
+      },
+    );
+    return products;
   }
 
-  Future<void> extractVariantItem(
-      List<ProductVariantEntity> variantProducts) async {
-    for (var i = 0; i < _filterVariantProduct.length; i++) {
-      for (var j = 0; j < variantProducts.length; j++) {
-        if (_filterVariantProduct[i]["titleVariant"] ==
-                variantProducts[j].titleVariant &&
-            _filterVariantProduct[i]["variant"] == variantProducts[j].variant) {
-          if (variantProducts[j].subTitleVariant.isNotEmpty) {
-            final contain = (_filterVariantProduct[i]["items"] as List)
-                .where((e) =>
-                    e["titleVariantItem"] == variantProducts[j].subTitleVariant)
-                .toList();
-            if (contain.isEmpty) {
-              _filterVariantProduct[i]["items"].add({
-                "titleVariantItem": variantProducts[j].subTitleVariant,
-                "stock": variantProducts[j].stock,
-                "image": variantProducts[j].image,
-                "price": variantProducts[j].price
-              });
-            }
-          } else {
-            final contain = (_filterVariantProduct[i]["items"] as List)
-                .where((e) =>
-                    e["titleVariantItem"] == variantProducts[j].titleVariant)
-                .toList();
-            if (contain.isEmpty) {
-              _filterVariantProduct[i]["items"].add({
-                "titleVariantItem": j,
-                "stock": variantProducts[j].stock,
-                "image": variantProducts[j].image,
-                "price": variantProducts[j].price
-              });
-            }
-          }
-        }
-      }
-    }
+  void changeAppState(AppState state) {
+    _appState = state;
     notifyListeners();
-  }
-
-  Future<void> changeIndexVariantCard(int index) async {
-    _indexVariantCard = index;
-    selectedVariantProduct();
-    notifyListeners();
-  }
-
-  void changeIndexVariantCard2(int index) {
-    _indexVariantCard2 = index;
-    selectedVariantProduct();
-    notifyListeners();
-  }
-
-  void selectedVariantProduct() {
-    final Map<String, dynamic> selectedVariantMap = {};
-    if (_subVariant.isNotEmpty) {
-      selectedVariantMap["titleVariant"] =
-          _filterVariantProduct[_indexVariantCard]["titleVariant"];
-      selectedVariantMap["subTitleVariant"] =
-          _filterVariantProduct[_indexVariantCard]["items"][_indexVariantCard2]
-              ["titleVariantItem"];
-      selectedVariantMap["stock"] = _filterVariantProduct[_indexVariantCard]
-          ["items"][_indexVariantCard2]["stock"];
-      selectedVariantMap["image"] = _filterVariantProduct[_indexVariantCard]
-          ["items"][_indexVariantCard2]["image"];
-      selectedVariantMap["price"] = _filterVariantProduct[_indexVariantCard]
-          ["items"][_indexVariantCard2]["price"];
-    }
-
-    if (_subVariant.isEmpty) {
-      selectedVariantMap["subTitleVariant"] = "";
-      selectedVariantMap["titleVariant"] =
-          _filterVariantProduct[_indexVariantCard]["titleVariant"];
-      selectedVariantMap["stock"] =
-          _filterVariantProduct[_indexVariantCard]["items"][0]["stock"];
-      selectedVariantMap["image"] =
-          _filterVariantProduct[_indexVariantCard]["items"][0]["image"];
-      selectedVariantMap["price"] =
-          _filterVariantProduct[_indexVariantCard]["items"][0]["price"];
-    }
-    _selectedProduct = selectedVariantMap;
   }
 }

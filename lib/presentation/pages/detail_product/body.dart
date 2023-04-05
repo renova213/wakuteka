@@ -23,18 +23,18 @@ class _BodyState extends State<Body> {
     Future.microtask(
       () async {
         if (widget.product.variants.isNotEmpty) {
-          await Provider.of<ProductProvider>(context, listen: false)
+          await Provider.of<FilterVariantProductProvider>(context, listen: false)
               .extractVariant(widget.product.variants)
               .then((_) async =>
-                  await Provider.of<ProductProvider>(context, listen: false)
+                  await Provider.of<FilterVariantProductProvider>(context, listen: false)
                       .extractTitlevariant(widget.product.variants))
               .then((_) async =>
-                  await Provider.of<ProductProvider>(context, listen: false)
+                  await Provider.of<FilterVariantProductProvider>(context, listen: false)
                       .extractVariantItem(widget.product.variants))
               .then((_) async =>
-                  await Provider.of<ProductProvider>(context, listen: false)
+                  await Provider.of<FilterVariantProductProvider>(context, listen: false)
                       .changeIndexVariantCard(0))
-              .then((_) => Provider.of<ProductProvider>(context, listen: false)
+              .then((_) => Provider.of<FilterVariantProductProvider>(context, listen: false)
                   .changeIndexVariantCard2(0));
         }
       },

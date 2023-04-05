@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:wakuteka/presentation/pages/product/components/exports.dart';
+import 'package:wakuteka/presentation/pages/detail_product/components/exports.dart';
 
 import '../../../../configs/config.dart';
 import '../../../../domain/domain.dart';
@@ -13,7 +13,7 @@ class ProductVariant extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ProductProvider>(
+    return Consumer<FilterVariantProductProvider>(
       builder: (context, product, _) {
         final variantLength = product.filterVariantProduct.length;
         final variant2Length = product.subVariant.isNotEmpty
@@ -106,7 +106,9 @@ class ProductVariant extends StatelessWidget {
           borderRadius: BorderRadius.circular(10)),
       child: Row(
         children: [
-          image.isNotEmpty ? Image.asset(image, width: 20.w) : const SizedBox(),
+          image.isNotEmpty
+              ? Image.network(image, width: 20.w)
+              : const SizedBox(),
           image.isNotEmpty ? SizedBox(width: 4.w) : const SizedBox(),
           Text(text, style: ThemeConfig.body2Light),
         ],

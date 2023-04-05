@@ -34,7 +34,7 @@ class ModalVariant extends StatelessWidget {
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
-                    child: Consumer<ProductProvider>(
+                    child: Consumer<FilterVariantProductProvider>(
                       builder: (context, product, _) => Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -106,10 +106,10 @@ class ModalVariant extends StatelessWidget {
   }
 
   Consumer _productInfo() {
-    return Consumer<ProductProvider>(
+    return Consumer<FilterVariantProductProvider>(
       builder: (context, product, _) => Row(
         children: [
-          Image.asset(
+          Image.network(
             product.selectedProduct['image'],
             width: 100.w,
           ),
@@ -164,7 +164,7 @@ class ModalVariant extends StatelessWidget {
       children: [
         Text(variant, style: ThemeConfig.body2SemiBold),
         SizedBox(height: 8.h),
-        Consumer<ProductProvider>(
+        Consumer<FilterVariantProductProvider>(
           builder: (context, product, _) {
             final variantLength = product.filterVariantProduct.length;
 
@@ -209,7 +209,7 @@ class ModalVariant extends StatelessWidget {
       children: [
         Text(variant, style: ThemeConfig.body2SemiBold),
         SizedBox(height: 8.h),
-        Consumer<ProductProvider>(
+        Consumer<FilterVariantProductProvider>(
           builder: (context, product, _) {
             final variantLength = product
                 .filterVariantProduct[product.indexVariantCard]["items"].length;
@@ -262,7 +262,9 @@ class ModalVariant extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          image.isNotEmpty ? Image.asset(image, width: 20.w) : const SizedBox(),
+          image.isNotEmpty
+              ? Image.network(image, width: 20.w)
+              : const SizedBox(),
           image.isNotEmpty ? SizedBox(width: 4.w) : const SizedBox(),
           Text(text, style: ThemeConfig.body2Light),
         ],
