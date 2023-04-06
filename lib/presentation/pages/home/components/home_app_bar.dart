@@ -28,18 +28,18 @@ class HomeAppBar extends StatelessWidget {
                 DefaultIconButton(
                   press: () {},
                   icon: Icon(Icons.sort,
-                      size: 30.r, color: ThemeConfig.kPrimaryLightColor),
+                      size: 30.w, color: ThemeConfig.kPrimaryLightColor),
                 ),
                 const Spacer(),
                 badges.Badge(
-                  badgeContent: const Text(
+                  badgeContent: Text(
                     '1',
-                    style: TextStyle(color: Colors.white, fontSize: 8),
+                    style: TextStyle(color: Colors.white, fontSize: 12.w),
                   ),
                   child: DefaultIconButton(
                     press: () {},
-                    icon: const Icon(Icons.shopping_cart_outlined,
-                        color: ThemeConfig.kPrimaryLightColor),
+                    icon: Icon(Icons.shopping_cart_outlined,
+                        color: ThemeConfig.kPrimaryLightColor, size: 24.w),
                   ),
                 ),
                 SizedBox(width: 16.w),

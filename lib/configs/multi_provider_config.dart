@@ -8,6 +8,10 @@ Function multiProvider = (Widget widget) {
   return MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => SplashProvider()),
     ChangeNotifierProvider(create: (_) => FilterVariantProductProvider()),
+    ChangeNotifierProvider(create: (_) => VisibilityProvider()),
+    ChangeNotifierProvider(create: (_) => BotNavBarProvider()),
+
+    //injector
     ChangeNotifierProvider(create: (_) => sl<ProductProvider>()),
   ], child: widget);
 };

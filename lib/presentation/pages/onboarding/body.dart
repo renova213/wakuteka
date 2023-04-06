@@ -62,7 +62,7 @@ class _BodyState extends State<Body> {
                           text: "Continue",
                           press: () {
                             Navigator.of(context).pushNamedAndRemoveUntil(
-                                "/home", (route) => false);
+                                "/entrypoint", (route) => false);
                           },
                         ),
                       ),

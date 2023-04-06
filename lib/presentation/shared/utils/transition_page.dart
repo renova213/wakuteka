@@ -4,7 +4,7 @@ import '../../../configs/config.dart';
 class TransitionPage {
   static Route<dynamic> fadeTransition(RouteSettings settings, Widget page) {
     return PageRouteBuilder(
-      transitionDuration: kRouteAnimationDuration,
+      transitionDuration: kDefaultDuration,
       settings: settings,
       pageBuilder: (BuildContext context, Animation<double> animation,
           Animation<double> secondaryAnimation) {

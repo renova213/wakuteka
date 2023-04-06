@@ -28,7 +28,7 @@ class _ProductImageState extends State<ProductImage> {
               left: 16.w,
               top: 260.h,
               child: AnimatedOpacity(
-                duration: kContainerCurrentImageDuration,
+                duration: kDefaultDuration,
                 opacity: spawnContainerCurrentImage ? 1.0 : 0.0,
                 child: Container(
                   alignment: Alignment.center,
