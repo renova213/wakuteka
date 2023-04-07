@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import '../../../../configs/config.dart';
 import '../../../presentation.dart';
 import 'package:badges/badges.dart' as badges;
@@ -25,10 +26,14 @@ class HomeAppBar extends StatelessWidget {
           children: [
             Row(
               children: [
-                DefaultIconButton(
-                  press: () {},
-                  icon: Icon(Icons.sort,
-                      size: 30.w, color: ThemeConfig.kPrimaryLightColor),
+                Consumer<SideMenuProvider>(
+                  builder: (context, side, _) => DefaultIconButton(
+                    press: () {
+                      side.changeIsOpened(true);
+                    },
+                    icon: Icon(Icons.sort,
+                        size: 30.w, color: ThemeConfig.kPrimaryLightColor),
+                  ),
                 ),
                 const Spacer(),
                 badges.Badge(

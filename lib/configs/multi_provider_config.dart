@@ -10,6 +10,7 @@ Function multiProvider = (Widget widget) {
     ChangeNotifierProvider(create: (_) => FilterVariantProductProvider()),
     ChangeNotifierProvider(create: (_) => VisibilityProvider()),
     ChangeNotifierProvider(create: (_) => BotNavBarProvider()),
+    ChangeNotifierProvider(create: (_) => SideMenuProvider()),
 
     //injector
     ChangeNotifierProvider(create: (_) => sl<ProductProvider>()),
