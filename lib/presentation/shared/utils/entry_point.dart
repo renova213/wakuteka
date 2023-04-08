@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:wakuteka/presentation/shared/components/side_menu.dart';
 
 import '../../../configs/config.dart';
 import '../../presentation.dart';
 
-class EntryPointScreen extends StatefulWidget {
-  const EntryPointScreen({super.key});
+class EntryPoint extends StatelessWidget {
+  const EntryPoint({super.key});
 
   static String routeName = "/entrypoint";
 
-  @override
-  State<EntryPointScreen> createState() => _EntryPointScreenState();
-}
-
-class _EntryPointScreenState extends State<EntryPointScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,17 +31,20 @@ class _EntryPointScreenState extends State<EntryPointScreen> {
                 scale: side.isOpened ? 0.85 : 1,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(24),
-                  child: GestureDetector(
-                    onTap: () {
-                      side.changeIsOpened(false);
-                    },
-                    child: Consumer<BotNavBarProvider>(
-                        builder: (context, navbar, _) =>
-                            navbar.currentIndex == 0
-                                ? const HomePage()
-                                : navbar.currentIndex == 1
-                                    ? const TransactionPage()
-                                    : const ProfilePage()),
+                  child: Consumer<VisibilityProvider>(
+                    builder: (context, visibility, _) => GestureDetector(
+                      onTap: () {
+                        side.changeIsOpened(false);
+                        visibility.isVisible = false;
+                      },
+                      child: Consumer<BotNavBarProvider>(
+                          builder: (context, navbar, _) =>
+                              navbar.currentIndex == 0
+                                  ? const HomePage()
+                                  : navbar.currentIndex == 1
+                                      ? const TransactionPage()
+                                      : const ProfilePage()),
+                    ),
                   ),
                 ),
               ),

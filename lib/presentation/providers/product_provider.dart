@@ -16,10 +16,12 @@ class ProductProvider extends ChangeNotifier {
   ];
   AppState _appState = AppState.loading;
   List<ProductEntity> _products = [];
+  List<ProductEntity> _productsByCategory = [];
 
   List<Map<String, dynamic>> get cardProductCategoryItems =>
       _cardProductCategoryItems;
   List<ProductEntity> get products => _products;
+  List<ProductEntity> get productsByCategory => _productsByCategory;
   AppState get appState => _appState;
 
   //remote product
@@ -34,13 +36,30 @@ class ProductProvider extends ChangeNotifier {
       },
       (product) {
         _products = product;
+        changeAppState(AppState.loaded);
+      },
+    );
+  }
+
+  Future<void> fetchProductByCategoryName(String categoryName) async {
+    changeAppState(AppState.loading);
+
+    final exceptionOrProduct =
+        await getProductUsecase.getProductByCategoryName(categoryName);
+
+    exceptionOrProduct.fold(
+      (exception) {
+        changeAppState(AppState.failed);
+      },
+      (product) {
+        _productsByCategory = product;
 
         changeAppState(AppState.loaded);
       },
     );
   }
 
-  Future<List<ProductEntity>> fetchProductByCategoryName(
+  Future<List<ProductEntity>> fetchAndReturnProductByCategoryName(
       String categoryName) async {
     List<ProductEntity> products = [];
     changeAppState(AppState.loading);

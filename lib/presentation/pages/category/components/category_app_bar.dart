@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 import '../../../../configs/config.dart';
 import '../../../presentation.dart';
 import 'package:badges/badges.dart' as badges;
 
-class HomeAppBar extends StatelessWidget {
-  const HomeAppBar({super.key});
+class CategoryAppBar extends StatelessWidget {
+  final String categoryName;
+  const CategoryAppBar({super.key, required this.categoryName});
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +26,10 @@ class HomeAppBar extends StatelessWidget {
           children: [
             Row(
               children: [
-                Consumer<SideMenuProvider>(
-                  builder: (context, side, _) => Consumer<VisibilityProvider>(
-                    builder: (context, visibility, _) => DefaultIconButton(
-                      press: () {
-                        side.changeIsOpened(true);
-                        visibility.isVisible = false;
-                      },
-                      icon: Icon(Icons.sort,
-                          size: 30.w, color: ThemeConfig.kPrimaryLightColor),
-                    ),
-                  ),
+                IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: Icon(Icons.keyboard_arrow_left,
+                      size: 30.w, color: ThemeConfig.kPrimaryLightColor),
                 ),
                 const Spacer(),
                 badges.Badge(
@@ -56,7 +49,7 @@ class HomeAppBar extends StatelessWidget {
             SizedBox(height: 12.h),
             Padding(
               padding: EdgeInsets.only(left: 32.w),
-              child: Text("Hello, user",
+              child: Text(categoryName,
                   style: ThemeConfig.heading4
                       .copyWith(color: ThemeConfig.kSecondTextColor)),
             ),

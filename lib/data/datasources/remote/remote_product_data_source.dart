@@ -17,7 +17,6 @@ class RemoteProductDataSourceImpl implements RemoteProductDataSource {
   @override
   Future<List<ProductModel>> getProduct() async {
     final response = await apiConfig.get(path: "product", apiKey: '');
-
     try {
       if (response.statusCode == 200) {
         final List<ProductModel> products =
@@ -45,6 +44,7 @@ class RemoteProductDataSourceImpl implements RemoteProductDataSource {
             (json.decode(response.body)['product'] as List)
                 .map((e) => ProductModel.fromJson(e))
                 .toList();
+
         return products;
       } else if (response.statusCode == 404) {
         return [];

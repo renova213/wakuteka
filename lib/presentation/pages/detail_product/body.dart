@@ -67,10 +67,14 @@ class _BodyState extends State<Body> {
                       title: widget.product.productName,
                       description: widget.product.description),
                   SizedBox(height: 12.h),
-                  Divider(color: Colors.grey.shade300),
-                  SizedBox(height: 12.h),
                   widget.product.variants.isNotEmpty
-                      ? ProductVariant(product: widget.product)
+                      ? Column(
+                          children: [
+                            Divider(color: Colors.grey.shade300),
+                            SizedBox(height: 12.h),
+                            ProductVariant(product: widget.product)
+                          ],
+                        )
                       : const SizedBox(),
                   SizedBox(height: 12.h),
                   Divider(color: Colors.grey.shade300),

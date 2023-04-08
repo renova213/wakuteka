@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:wakuteka/presentation/shared/components/product_card.dart';
 
 import '../../../../domain/domain.dart';
 import '../../../presentation.dart';
@@ -24,7 +23,7 @@ class _ProductHighlighterState extends State<ProductHighlighter> {
 
     Future.microtask(() async {
       products = await Provider.of<ProductProvider>(context, listen: false)
-          .fetchProductByCategoryName(widget.title);
+          .fetchAndReturnProductByCategoryName(widget.title);
     });
   }
 
@@ -35,7 +34,12 @@ class _ProductHighlighterState extends State<ProductHighlighter> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SectionTitle(title: widget.title, press: () {}),
+          SectionTitle(
+              title: widget.title,
+              press: () {
+                Navigator.pushNamed(context, CategoryPage.routeName,
+                    arguments: widget.title);
+              }),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Consumer<ProductProvider>(

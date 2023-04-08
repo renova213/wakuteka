@@ -9,7 +9,8 @@ class Routes {
       OnboardingPage.routeName: (context) => const OnboardingPage(),
       HomePage.routeName: (context) => const HomePage(),
       DetailProductPage.routeName: (context) => const DetailProductPage(),
-      EntryPointScreen.routeName: (context) => const EntryPointScreen(),
+      EntryPoint.routeName: (context) => const EntryPoint(),
+      CategoryPage.routeName: (context) => const CategoryPage(),
     };
   }
 }

@@ -4,3 +4,4 @@ export 'splash/splash_page.dart';
 export 'detail_product/detail_product_page.dart';
 export 'transaction/transaction_page.dart';
 export 'profile/profile_page.dart';
+export 'category/category_page.dart';

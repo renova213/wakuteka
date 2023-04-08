@@ -38,7 +38,10 @@ class MyApp extends StatelessWidget {
                     settings, const DetailProductPage());
               case "/entrypoint":
                 return TransitionPage.fadeTransition(
-                    settings, const EntryPointScreen());
+                    settings, const EntryPoint());
+              case "/category":
+                return TransitionPage.fadeTransition(
+                    settings, const CategoryPage());
               default:
                 return null;
             }
