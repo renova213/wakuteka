@@ -1,3 +1,3 @@
 class EnvironmentConfig {
-  static const String apiUrl = 'https://charming-cyan-bee.cyclic.app';
+  static const String apiUrl = 'http://192.168.1.19:27017';
 }

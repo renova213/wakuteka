@@ -4,14 +4,27 @@ import '../../../../configs/config.dart';
 import '../../../presentation.dart';
 import 'package:badges/badges.dart' as badges;
 
-class CategoryAppBar extends StatelessWidget {
-  final String categoryName;
-  const CategoryAppBar({super.key, required this.categoryName});
+class SearchAppBar extends StatefulWidget {
+  final String productName;
+  const SearchAppBar({super.key, required this.productName});
+
+  @override
+  State<SearchAppBar> createState() => _SearchAppBarState();
+}
+
+class _SearchAppBarState extends State<SearchAppBar> {
+  final TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    searchController.text = widget.productName;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 220.h,
+      height: 180.h,
       width: double.maxFinite,
       decoration: const BoxDecoration(
         color: ThemeConfig.kPrimaryColor,
@@ -32,6 +45,12 @@ class CategoryAppBar extends StatelessWidget {
                       size: 30.w, color: ThemeConfig.kPrimaryLightColor),
                 ),
                 const Spacer(),
+                Text(
+                  "Search",
+                  style:
+                      ThemeConfig.body1SemiBold.copyWith(color: Colors.white),
+                ),
+                const Spacer(),
                 badges.Badge(
                   badgeContent: Text(
                     '1',
@@ -46,13 +65,6 @@ class CategoryAppBar extends StatelessWidget {
                 SizedBox(width: 16.w),
               ],
             ),
-            SizedBox(height: 12.h),
-            Padding(
-              padding: EdgeInsets.only(left: 32.w),
-              child: Text(categoryName,
-                  style: ThemeConfig.heading4
-                      .copyWith(color: ThemeConfig.kSecondTextColor)),
-            ),
             SizedBox(height: 24.h),
             _searchBar(context),
           ],
@@ -65,8 +77,11 @@ class CategoryAppBar extends StatelessWidget {
     return SizedBox(
       height: 55.h,
       child: TextField(
-        onTap: () {},
-        onSubmitted: (input) {},
+        controller: searchController,
+        onSubmitted: (input) {
+          Navigator.of(context).pushNamed(SearchPage.routeName,
+              arguments: searchController.text);
+        },
         decoration: InputDecoration(
           hintText: "Search items ...",
           contentPadding:

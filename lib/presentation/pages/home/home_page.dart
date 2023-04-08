@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'components/exports.dart';
 
 class HomePage extends StatelessWidget {
@@ -8,8 +9,15 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Body(),
+    final focusField = FocusNode();
+    return Scaffold(
+      body: GestureDetector(
+          onTap: () {
+            focusField.unfocus();
+            FocusScope.of(context).requestFocus(FocusNode());
+            SystemChannels.textInput.invokeMethod('TextInput.hide');
+          },
+          child: const Body()),
     );
   }
 }

@@ -30,7 +30,11 @@ class HomeAppBar extends StatelessWidget {
                   builder: (context, side, _) => Consumer<VisibilityProvider>(
                     builder: (context, visibility, _) => DefaultIconButton(
                       press: () {
-                        side.changeIsOpened(true);
+                        if (side.isOpened == true) {
+                          side.changeIsOpened(false);
+                        } else {
+                          side.changeIsOpened(true);
+                        }
                         visibility.isVisible = false;
                       },
                       icon: Icon(Icons.sort,
@@ -61,18 +65,21 @@ class HomeAppBar extends StatelessWidget {
                       .copyWith(color: ThemeConfig.kSecondTextColor)),
             ),
             SizedBox(height: 24.h),
-            _searchBar(),
+            _searchBar(context),
           ],
         ),
       ),
     );
   }
 
-  SizedBox _searchBar() {
+  SizedBox _searchBar(BuildContext context) {
     return SizedBox(
       height: 55.h,
       child: TextField(
-        readOnly: true,
+        onSubmitted: (input) {
+          Navigator.of(context)
+              .pushNamed(SearchPage.routeName, arguments: input);
+        },
         decoration: InputDecoration(
           hintText: "Search items ...",
           contentPadding:

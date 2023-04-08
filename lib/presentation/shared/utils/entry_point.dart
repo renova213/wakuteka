@@ -31,21 +31,12 @@ class EntryPoint extends StatelessWidget {
                 scale: side.isOpened ? 0.85 : 1,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(24),
-                  child: Consumer<VisibilityProvider>(
-                    builder: (context, visibility, _) => GestureDetector(
-                      onTap: () {
-                        side.changeIsOpened(false);
-                        visibility.isVisible = false;
-                      },
-                      child: Consumer<BotNavBarProvider>(
-                          builder: (context, navbar, _) =>
-                              navbar.currentIndex == 0
-                                  ? const HomePage()
-                                  : navbar.currentIndex == 1
-                                      ? const TransactionPage()
-                                      : const ProfilePage()),
-                    ),
-                  ),
+                  child: Consumer<BotNavBarProvider>(
+                      builder: (context, navbar, _) => navbar.currentIndex == 0
+                          ? const HomePage()
+                          : navbar.currentIndex == 1
+                              ? const TransactionPage()
+                              : const ProfilePage()),
                 ),
               ),
             ),

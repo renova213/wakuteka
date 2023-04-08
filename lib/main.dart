@@ -42,6 +42,9 @@ class MyApp extends StatelessWidget {
               case "/category":
                 return TransitionPage.fadeTransition(
                     settings, const CategoryPage());
+              case "/search":
+                return TransitionPage.fadeTransition(
+                    settings, const SearchPage());
               default:
                 return null;
             }

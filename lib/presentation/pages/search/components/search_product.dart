@@ -3,8 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:wakuteka/presentation/presentation.dart';
 
-class CategoryProduct extends StatelessWidget {
-  const CategoryProduct({super.key});
+import '../../../../domain/domain.dart';
+
+class SearchProduct extends StatelessWidget {
+  final List<ProductEntity> products;
+  const SearchProduct({super.key, required this.products});
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +16,9 @@ class CategoryProduct extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Wrap(
             children: List.generate(
-              product.productsByCategory.length,
+              products.length,
               (index) {
-                final data = product.productsByCategory[index];
+                final data = products[index];
                 return Padding(
                   padding: EdgeInsets.only(right: 16.w, bottom: 16.h),
                   child: ProductCard(

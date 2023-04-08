@@ -19,4 +19,11 @@ class GetProductUsecase {
         await productRepository.getProductByCategoryName(categoryName);
     return products;
   }
+
+  Future<Either<ServerException, List<ProductEntity>>> getProductByProductName(
+      String productName) async {
+    final products =
+        await productRepository.getProductByProductName(productName);
+    return products;
+  }
 }

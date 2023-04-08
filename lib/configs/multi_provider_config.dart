@@ -14,5 +14,6 @@ Function multiProvider = (Widget widget) {
 
     //injector
     ChangeNotifierProvider(create: (_) => sl<ProductProvider>()),
+    ChangeNotifierProvider(create: (_) => sl<SearchProvider>()),
   ], child: widget);
 };

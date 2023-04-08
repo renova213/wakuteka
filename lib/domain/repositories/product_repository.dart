@@ -7,4 +7,6 @@ abstract class ProductRepository {
   Future<Either<ServerException, List<ProductEntity>>> getProduct();
   Future<Either<ServerException, List<ProductEntity>>> getProductByCategoryName(
       String categoryName);
+  Future<Either<ServerException, List<ProductEntity>>> getProductByProductName(
+      String productName);
 }

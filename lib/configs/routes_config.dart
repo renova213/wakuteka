@@ -11,6 +11,7 @@ class Routes {
       DetailProductPage.routeName: (context) => const DetailProductPage(),
       EntryPoint.routeName: (context) => const EntryPoint(),
       CategoryPage.routeName: (context) => const CategoryPage(),
+      SearchPage.routeName: (context) => const SearchPage(),
     };
   }
 }

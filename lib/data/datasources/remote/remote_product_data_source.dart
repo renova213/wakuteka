@@ -7,6 +7,7 @@ import '../../data.dart';
 abstract class RemoteProductDataSource {
   Future<List<ProductModel>> getProduct();
   Future<List<ProductModel>> getProductByCategoryName(String categoryName);
+  Future<List<ProductModel>> getProductByProductName(String productName);
 }
 
 class RemoteProductDataSourceImpl implements RemoteProductDataSource {
@@ -17,6 +18,27 @@ class RemoteProductDataSourceImpl implements RemoteProductDataSource {
   @override
   Future<List<ProductModel>> getProduct() async {
     final response = await apiConfig.get(path: "product", apiKey: '');
+    try {
+      if (response.statusCode == 200) {
+        final List<ProductModel> products =
+            (json.decode(response.body)['products'] as List)
+                .map((e) => ProductModel.fromJson(e))
+                .toList();
+        return products;
+      } else {
+        throw ServerException(
+            statusCode: response.statusCode,
+            message: 'Failed to fetch data from server');
+      }
+    } on SocketException catch (e) {
+      throw NetworkException('Failed to connect to server: ${e.message}');
+    }
+  }
+
+  @override
+  Future<List<ProductModel>> getProductByProductName(String productName) async {
+    final response = await apiConfig.get(
+        path: "product/search/${productName.toLowerCase()}", apiKey: '');
     try {
       if (response.statusCode == 200) {
         final List<ProductModel> products =

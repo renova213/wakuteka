@@ -23,4 +23,6 @@ void setUp() {
   //provider
   sl.registerFactory<ProductProvider>(
       () => ProductProvider(getProductUsecase: sl()));
+  sl.registerFactory<SearchProvider>(
+      () => SearchProvider(getProductUsecase: sl()));
 }

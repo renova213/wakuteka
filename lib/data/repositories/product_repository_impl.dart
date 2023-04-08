@@ -32,4 +32,17 @@ class ProductRepositoryImpl implements ProductRepository {
           ServerException(statusCode: e.statusCode, message: e.message));
     }
   }
+
+  @override
+  Future<Either<ServerException, List<ProductEntity>>> getProductByProductName(
+      String productName) async {
+    try {
+      final products =
+          await remoteProductDataSource.getProductByProductName(productName);
+      return Right(products);
+    } on ServerException catch (e) {
+      return Left(
+          ServerException(statusCode: e.statusCode, message: e.message));
+    }
+  }
 }
