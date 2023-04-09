@@ -19,6 +19,22 @@ class SideMenu extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: Consumer<SideMenuProvider>(
+                builder: (context, side, _) => IconButton(
+                  highlightColor: const Color(0xFF6792FF),
+                  onPressed: () {
+                    side.changeIsOpened(false);
+                  },
+                  icon: const Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                ),
+              ),
+            ),
             _infoCard(),
             Padding(
               padding: EdgeInsets.only(left: 24.w),
@@ -39,9 +55,17 @@ class SideMenu extends StatelessWidget {
 
   ListTile _infoCard() {
     return ListTile(
-      leading: const CircleAvatar(
-        backgroundColor: Colors.white24,
-        child: Icon(CupertinoIcons.person, color: Colors.white),
+      leading: Container(
+        width: 55.h,
+        height: 55.h,
+        decoration: BoxDecoration(
+            image: const DecorationImage(
+                image: NetworkImage(
+                  "https://i1.wp.com/www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg?ssl=1",
+                ),
+                fit: BoxFit.cover),
+            borderRadius: BorderRadius.circular(100),
+            color: Colors.white24),
       ),
       title: Text(
         "Rizco Renova",
